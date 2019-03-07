@@ -13,7 +13,7 @@ public class ProdutoModel {
     private double precoDeCompra;
     private double precoDeVenda;
     private int quantidade;
-    private boolean produtoHabilitado;
+    private boolean produtoDisponivel;
 
     public String getNome() {
         return nome;
@@ -55,12 +55,12 @@ public class ProdutoModel {
         this.quantidade = quantidade;
     }
 
-    public boolean isProdutoHabilitado() {
-        return produtoHabilitado;
+    public boolean isProdutoDisponivel() {
+        return produtoDisponivel;
     }
 
-    public void setProdutoHabilitado(boolean produtoHabilitado) {
-        this.produtoHabilitado = produtoHabilitado;
+    public void setProdutoDisponivel(boolean produtoHDisponivel) {
+        this.produtoDisponivel = produtoDisponivel;
     }
     
     
