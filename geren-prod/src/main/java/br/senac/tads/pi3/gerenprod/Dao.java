@@ -12,36 +12,33 @@ import java.util.ArrayList;
  * @author bruna.dpsantos
  */
 public class Dao {
-    public static boolean Salvar(Produto p) {
+    public static boolean Salvar(ProdutoModel p) {
         DB db = new DB(true);
         String sql = 
                 "INSERT INTO produto "
-                + "(mome, descricao, precoCompra, precoVenda, quantidade, tipo Quantidade, Descricao)"
+                + "(ID,NOME, DESCRICAO, PRECO_COMPRA, PRECO_VENDA, QUANTIDADE, DISPONIVEL, DT_CADASTRO)"
                 + "VALUES ("
-                + "'"+p.gettitulo()+"', "
-                + "'"+p.getautor()+"', "
-                + "'"+p.getgenero()+"', "
-                + "'"+p.geteditora()+"', "
-                + ""+p.getvalorUni()+", "
-                + "'"+p.gettipo()+"', "
-                + ""+p.getquantidade()+", "
-                + "'"+p.getdescricao()+"');";
+                + "'"+p.getId()+"', "
+                + "'"+p.getNome()+"', "
+                + "'"+p.getDescricao()+"', "
+                + "'"+p.getPrecoDeCompra()+"', "
+                + "'"+p.getPrecoDeVenda()+"', "
+                + "'"+p.getQuantidade()+"', "
+                + "'"+p.isProdutoDisponivel()+"');";             
         return db.executarAlteracao(sql);
     }
 
-    public static boolean Atualizar(Produto p) {
+    public static boolean Atualizar(ProdutoModel p) {
         DB db = new DB(true);
         String sql = 
                 "UPDATE produto SET "
-                + "Titulo = '"+p.gettitulo()+"', "
-                + "Autor = '"+p.getautor()+"', "
-                + "Genero = '"+p.getgenero()+"', "
-                + "Editora = '"+p.geteditora()+"', "
-                + "Valor = "+p.getvalorUni()+", "
-                + "Tipo = '"+p.gettipo()+"', "
-                + "Quantidade = "+p.getquantidade()+", "
-                + "Descricao = '"+p.getdescricao()+"' "
-                + "Where ID = "+p.getIdProduto()+";";
+                + "ID = '"+p.getId()+"', "
+                + "NOME = '"+p.getNome()+"', "
+                + "DESCRICAO = '"+p.getDescricao()+"', "
+                + "PRECO_COMPRA = '"+p.getPrecoDeCompra()+"', "
+                + "PRECO_VENDA = '"+p.getPrecoDeVenda()+"', "
+                + "QUANTIDADE = "+p.getQuantidade()+", "
+                + "DISPONIVEL = '"+p.isProdutoDisponivel()+";";
         return db.executarAlteracao(sql);
     }
 
@@ -51,23 +48,20 @@ public class Dao {
         return db.executarAlteracao(sql);
     }
 
-    public static ArrayList<Produto> getProdutos() {
+    public static ArrayList<ProdutoModel> getProdutos() {
         DB db = new DB(true);
         try {
             String sql = "SELECT * FROM produto;";
             ResultSet rs = db.executarConsulta(sql);
-            ArrayList<Produto> produtos = new ArrayList();
+            ArrayList<ProdutoModel> produtos = new ArrayList();
             while (rs.next()) {
-                Produto p = new Produto();
-                p.setIdProduto(rs.getInt("ID"));
-                p.settitulo(rs.getString("Titulo"));
-                p.setautor(rs.getString("Autor"));
-                p.setgenero(rs.getString("Genero"));
-                p.seteditora(rs.getString("Editora"));
-                p.setvalorUni(rs.getDouble("Valor"));
-                p.settipo(rs.getString("Tipo"));
-                p.setquantidade(rs.getInt("Quantidade"));
-                p.setdescricao(rs.getString("Descricao"));
+                ProdutoModel p = new ProdutoModel();
+                p.setId(rs.getInt("ID"));
+                p.setNome(rs.getString("NOME"));
+                p.setDescricao(rs.getString("DESCRICAO"));
+                p.setPrecoDeCompra(rs.getDouble("PRECO_COMPRA"));
+                p.setPrecoDeVenda(rs.getDouble("PRECO_VENDA"));
+                p.setQuantidade(rs.getInt("QUANTIDADE"));
                 produtos.add(p);
             }
             db.close();
@@ -79,7 +73,7 @@ public class Dao {
         }
     }
 
-    public static ArrayList<Produto> filtrarProdutos(int id, String titulo, String autor, String genero, String editora) {
+    public static ArrayList<ProdutoModel> filtrarProdutos(int id, String titulo, String autor, String genero, String editora) {
         DB db = new DB(true);
         try {
             String sql = "SELECT * FROM produto WHERE ";
@@ -88,18 +82,15 @@ public class Dao {
             }
             sql += "titulo LIKE '%"+titulo+"%' AND autor LIKE '%"+autor+"%' AND genero LIKE '%"+genero+"%' AND editora LIKE '%"+editora+"%';";
             ResultSet rs = db.executarConsulta(sql);
-            ArrayList<Produto> produtos = new ArrayList();
+            ArrayList<ProdutoModel> produtos = new ArrayList();
             while (rs.next()) {
-                Produto p = new Produto();
-                p.setIdProduto(rs.getInt("ID"));
-                p.settitulo(rs.getString("Titulo"));
-                p.setautor(rs.getString("Autor"));
-                p.setgenero(rs.getString("Genero"));
-                p.seteditora(rs.getString("Editora"));
-                p.setvalorUni(rs.getDouble("Valor"));
-                p.settipo(rs.getString("Tipo"));
-                p.setquantidade(rs.getInt("Quantidade"));
-                p.setdescricao(rs.getString("Descricao"));
+                ProdutoModel p = new ProdutoModel();
+                p.setId(rs.getInt("ID"));
+                p.setNome(rs.getString("NOME"));
+                p.setDescricao(rs.getString("DESCRICAO"));
+                p.setPrecoDeCompra(rs.getDouble("PRECO_COMPRA"));
+                p.setPrecoDeVenda(rs.getDouble("PRECO_VENDA"));
+                p.setQuantidade(rs.getInt("QUANTIDADE"));
                 produtos.add(p);
             }
             db.close();

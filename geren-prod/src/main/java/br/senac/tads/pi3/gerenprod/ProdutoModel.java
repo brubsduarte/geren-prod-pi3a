@@ -8,12 +8,21 @@ package br.senac.tads.pi3.gerenprod;
  */
 public class ProdutoModel {
     
+    private int id;
     private String nome;
     private String descricao;
     private double precoDeCompra;
     private double precoDeVenda;
     private int quantidade;
     private boolean produtoDisponivel;
+    
+        public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
