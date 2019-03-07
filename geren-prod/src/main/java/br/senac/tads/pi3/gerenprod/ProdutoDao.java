@@ -11,8 +11,8 @@ import java.util.ArrayList;
  *
  * @author bruna.dpsantos
  */
-public class Dao {
-    public static boolean Salvar(ProdutoModel p) {
+public class ProdutoDao {
+    public static boolean Salvar(Produto p) {
         DB db = new DB(true);
         String sql = 
                 "INSERT INTO produto "
@@ -28,7 +28,7 @@ public class Dao {
         return db.executarAlteracao(sql);
     }
 
-    public static boolean Atualizar(ProdutoModel p) {
+    public static boolean Atualizar(Produto p) {
         DB db = new DB(true);
         String sql = 
                 "UPDATE produto SET "
@@ -48,14 +48,14 @@ public class Dao {
         return db.executarAlteracao(sql);
     }
 
-    public static ArrayList<ProdutoModel> getProdutos() {
+    public static ArrayList<Produto> getProdutos() {
         DB db = new DB(true);
         try {
             String sql = "SELECT * FROM produto;";
             ResultSet rs = db.executarConsulta(sql);
-            ArrayList<ProdutoModel> produtos = new ArrayList();
+            ArrayList<Produto> produtos = new ArrayList();
             while (rs.next()) {
-                ProdutoModel p = new ProdutoModel();
+                Produto p = new Produto();
                 p.setId(rs.getInt("ID"));
                 p.setNome(rs.getString("NOME"));
                 p.setDescricao(rs.getString("DESCRICAO"));
@@ -73,7 +73,7 @@ public class Dao {
         }
     }
 
-    public static ArrayList<ProdutoModel> filtrarProdutos(int id, String titulo, String autor, String genero, String editora) {
+    public static ArrayList<Produto> filtrarProdutos(int id, String titulo, String autor, String genero, String editora) {
         DB db = new DB(true);
         try {
             String sql = "SELECT * FROM produto WHERE ";
@@ -82,9 +82,9 @@ public class Dao {
             }
             sql += "titulo LIKE '%"+titulo+"%' AND autor LIKE '%"+autor+"%' AND genero LIKE '%"+genero+"%' AND editora LIKE '%"+editora+"%';";
             ResultSet rs = db.executarConsulta(sql);
-            ArrayList<ProdutoModel> produtos = new ArrayList();
+            ArrayList<Produto> produtos = new ArrayList();
             while (rs.next()) {
-                ProdutoModel p = new ProdutoModel();
+                Produto p = new Produto();
                 p.setId(rs.getInt("ID"));
                 p.setNome(rs.getString("NOME"));
                 p.setDescricao(rs.getString("DESCRICAO"));

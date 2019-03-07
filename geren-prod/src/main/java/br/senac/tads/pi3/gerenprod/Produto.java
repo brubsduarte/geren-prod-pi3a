@@ -6,7 +6,7 @@ package br.senac.tads.pi3.gerenprod;
 /**
  * @author bruna.dpsantos
  */
-public class ProdutoModel {
+public class Produto {
     
     private int id;
     private String nome;
