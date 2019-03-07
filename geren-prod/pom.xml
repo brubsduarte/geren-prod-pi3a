@@ -14,8 +14,16 @@
             <name>Bruna Duarte</name>
         </developer>
         <developer>
-            <id>fulano</id>
-            <name> Fulano </name>
+            <id>gustavo-senac</id>
+            <name>Gustavo Pereira</name>
+        </developer>
+        <developer>
+            <id>caio-senac</id>
+            <name>Caio Celso</name>
+        </developer>
+        <developer>
+            <id>felippe-senac</id>
+            <name>Felippe Gustavo</name>
         </developer>
     </developers>
     <properties>
