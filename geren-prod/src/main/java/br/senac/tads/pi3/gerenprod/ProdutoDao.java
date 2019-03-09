@@ -28,6 +28,11 @@ public class ProdutoDao {
         return db.executarAlteracao(sql);
     }
 
+    /**
+     * 
+     * @param p
+     * @return 
+     */
     public static boolean Atualizar(Produto p) {
         DB db = new DB(true);
         String sql = 
