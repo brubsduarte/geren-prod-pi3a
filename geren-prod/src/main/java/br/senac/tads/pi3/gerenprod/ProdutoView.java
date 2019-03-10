@@ -5,12 +5,10 @@
  */
 package br.senac.tads.pi3.gerenprod;
 
-/**
- *
- * @author engen
- */
 public class ProdutoView extends javax.swing.JFrame {
-
+    
+    private ProdutoController controller = new ProdutoController();
+    
     /**
      * Creates new form ProdutoView
      */
