@@ -14,6 +14,8 @@ public class ProdutoView extends javax.swing.JFrame {
     /**
      * Creates new form ProdutoView
      */
+    ProdutoController controller;
+    
     public ProdutoView() {
         initComponents();
     }
