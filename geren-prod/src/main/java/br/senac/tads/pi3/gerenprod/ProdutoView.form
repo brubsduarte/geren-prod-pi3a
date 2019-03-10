@@ -347,6 +347,7 @@
                     <Column editable="true" title="Qtd" type="java.lang.Integer"/>
                   </Table>
                 </Property>
+                <Property name="autoResizeMode" type="int" value="0"/>
               </Properties>
             </Component>
           </SubComponents>
