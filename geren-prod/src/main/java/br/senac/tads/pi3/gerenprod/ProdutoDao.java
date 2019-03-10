@@ -6,12 +6,29 @@ package br.senac.tads.pi3.gerenprod;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author bruna.dpsantos
  */
 public class ProdutoDao {
+    
+    private ArrayList<Produto> listaProduto = new ArrayList();
+    
+      public boolean cadastroProduto(Produto produto) {
+    
+        for (Produto i: listaProduto) {
+            if (i.getId() == produto.getId()) {
+                JOptionPane.showMessageDialog(null, "Produto já cadastrado!");
+                return false;
+            }
+        }
+        listaProduto.add(produto);
+        JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
+        return true;
+    }
+    
     public static boolean Salvar(Produto p) {
         DB db = new DB(true);
         String sql = 
