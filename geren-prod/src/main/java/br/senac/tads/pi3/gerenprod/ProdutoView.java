@@ -84,6 +84,11 @@ public class ProdutoView extends javax.swing.JFrame {
         btnCancelar.setText("Cancelar");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlBotoesFormularioLayout = new javax.swing.GroupLayout(pnlBotoesFormulario);
         pnlBotoesFormulario.setLayout(pnlBotoesFormularioLayout);
@@ -265,6 +270,20 @@ public class ProdutoView extends javax.swing.JFrame {
     private void btnDisponibilidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisponibilidadeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDisponibilidadeActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        
+         Produto produto = new Produto();
+        
+        produto.setNome(txtNome.getText());
+        produto.setDescricao(txtDescricao.getText());
+        produto.setPrecoDeCompra(Double.parseDouble(txtPrecoCompra.getText()));
+        produto.setPrecoDeVenda(Double.parseDouble(txtPrecoVenda.getText()));
+        produto.setQuantidade(Integer.parseInt(txtPrecoCompra.getText()));
+        produto.setProdutoDisponivel(true);
+        controller.addProduto(produto);
+        
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments
