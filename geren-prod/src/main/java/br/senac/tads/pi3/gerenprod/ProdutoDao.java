@@ -46,7 +46,12 @@ public class ProdutoDao {
                 + "DISPONIVEL = '"+p.isProdutoDisponivel()+";";
         return db.executarAlteracao(sql);
     }
-
+    
+     /**
+     * 
+     * @param produtoID
+     * @return 
+     */
     public static boolean Excluir(int produtoID) {
         DB db = new DB(true);
         String sql = "DELETE FROM produto Where ID = "+produtoID+";";
