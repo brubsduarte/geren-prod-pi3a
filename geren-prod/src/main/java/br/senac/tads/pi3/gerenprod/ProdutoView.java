@@ -5,19 +5,52 @@
  */
 package br.senac.tads.pi3.gerenprod;
 
-public class ProdutoView extends javax.swing.JFrame {
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
+public final class ProdutoView extends javax.swing.JFrame {
     
-    private ProdutoController controller = new ProdutoController();
+    private final ProdutoController controller = new ProdutoController();
     
     /**
      * Creates new form ProdutoView
      */
     public ProdutoView() {
         initComponents();
+        preencherTabelaProdutos();
     }
     
-    public static void preencherTabelaProdutos (){
-        ProdutoController.listar();
+    public void preencherTabelaProdutos (){
+        ArrayList<String[]> listaProdutos = ProdutoController.listar();
+        
+        DefaultTableModel tmProduto = new DefaultTableModel();
+        tmProduto.addColumn("Id");
+        tmProduto.addColumn("Data");
+        tmProduto.addColumn("Nome");
+        tmProduto.addColumn("Descrição");
+        tmProduto.addColumn("$ Compra");
+        tmProduto.addColumn("$ Venda");
+        tmProduto.addColumn("Qtda");
+        tmProduto.addColumn("Disponibilidade");
+        
+        for (String[] c : listaProdutos) {
+            tmProduto.addRow(c);
+        }
+
+        tblProdutos.setModel(tmProduto);
+        
+        tblProdutos.setAutoscrolls(true);
+        
+        tblProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tblProdutos.getColumnModel().getColumn(1).setPreferredWidth(80);
+        tblProdutos.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tblProdutos.getColumnModel().getColumn(3).setPreferredWidth(300);
+        tblProdutos.getColumnModel().getColumn(4).setPreferredWidth(70);
+        tblProdutos.getColumnModel().getColumn(5).setPreferredWidth(70);
+        tblProdutos.getColumnModel().getColumn(6).setPreferredWidth(60);
+        tblProdutos.getColumnModel().getColumn(7).setPreferredWidth(100);
+           
+        this.pack();
     }
 
     /**
@@ -41,7 +74,7 @@ public class ProdutoView extends javax.swing.JFrame {
         txtPrecoVenda = new javax.swing.JTextField();
         txtQuantidade = new javax.swing.JTextField();
         lblCategoria = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         btnDisponibilidade = new javax.swing.JToggleButton();
         pnlBotoesFormulario = new javax.swing.JPanel();
         btnCancelar = new javax.swing.JButton();
@@ -70,7 +103,7 @@ public class ProdutoView extends javax.swing.JFrame {
 
         lblCategoria.setText("Categoria:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "item 5" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "item 5" }));
 
         btnDisponibilidade.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnDisponibilidade.setText("Disponibilidade");
@@ -177,6 +210,7 @@ public class ProdutoView extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tblProdutos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane1.setViewportView(tblProdutos);
 
         javax.swing.GroupLayout pnlTabelaLayout = new javax.swing.GroupLayout(pnlTabela);
