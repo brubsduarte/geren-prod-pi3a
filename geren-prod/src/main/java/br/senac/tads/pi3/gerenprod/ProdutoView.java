@@ -82,6 +82,11 @@ public class ProdutoView extends javax.swing.JFrame {
         pnlBotoesFormulario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -284,6 +289,16 @@ public class ProdutoView extends javax.swing.JFrame {
         controller.addProduto(produto);
         
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+
+        txtNome.setText("");
+        txtDescricao.setText("");
+        txtPrecoCompra.setText("");
+        txtPrecoVenda.setText("");
+        txtPrecoCompra.setText("");
+        
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
