@@ -1,13 +1,23 @@
 /*
- * Os getters e Setters e os métodos ficam nesta classe.
+ * Os getters e Setters ficam nesta classe.
  */
 package br.senac.tads.pi3.gerenprod;
+
+import java.sql.Date;
 
 /**
  * @author bruna.dpsantos
  */
 public class Produto {
-    
+
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
     private int id;
     private String nome;
     private String descricao;
@@ -15,8 +25,9 @@ public class Produto {
     private double precoDeVenda;
     private int quantidade;
     private boolean produtoDisponivel;
-    
-        public int getId() {
+    private Date dataCadastro;
+
+    public int getId() {
         return id;
     }
 
@@ -71,22 +82,5 @@ public class Produto {
     public void setProdutoDisponivel(boolean produtoHDisponivel) {
         this.produtoDisponivel = produtoDisponivel;
     }
-    
-    
-    public static void listar(){//neste método deve conter a lógica para listar todos os produtos cadastrados. 
-        
-    } 
-    
-    public static void incluir(){//neste método deve conter a lógica para cadastrar produto na lista de produtos.
-        
-    }
-    
-    public static void editar(){//neste método deve conter a lógica para editar os dados de um produto já cadastrado. 
-        
-    }
-    
-    public static void excluir(){//neste método deve conter a lógica para excluir um produto que já foi cadastrado. 
-        
-    }
-    
+
 }

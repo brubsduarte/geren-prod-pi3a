@@ -15,6 +15,10 @@ public class ProdutoView extends javax.swing.JFrame {
     public ProdutoView() {
         initComponents();
     }
+    
+    public static void preencherTabelaProdutos (){
+        ProdutoController.listar();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
