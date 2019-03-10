@@ -9,6 +9,14 @@ package br.senac.tads.pi3.gerenprod;
  *
  * @author bruna.dpsantos
  */
+
 public class ProdutoController {
+    
+    private ProdutoDao produtoDao = new ProdutoDao();
+    
+    public boolean addProduto(Produto produto) {
+
+        return produtoDao.cadastroProduto(produto);
+    }
     
 }
