@@ -10,6 +10,30 @@ import java.sql.Date;
  */
 public class Produto {
 
+        private int id;
+        private String nome;
+        private String descricao;
+        private double precoDeCompra;
+        private double precoDeVenda;
+        private int quantidade;
+        private boolean produtoDisponivel;
+        private Date dataCadastro;
+        
+        public Produto(int id,String nome, String descricao, double precoDeCompra, double precoDeVenda, int quantidade, boolean produtoDisponivel) {
+            
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.precoDeCompra = precoDeCompra;
+        this.precoDeVenda = precoDeVenda;
+        this.quantidade = quantidade;
+        this.produtoDisponivel = produtoDisponivel;
+    
+    }
+
+    public Produto() {
+    }
+    
     public Date getDataCadastro() {
         return dataCadastro;
     }
@@ -17,15 +41,6 @@ public class Produto {
     public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
-
-    private int id;
-    private String nome;
-    private String descricao;
-    private double precoDeCompra;
-    private double precoDeVenda;
-    private int quantidade;
-    private boolean produtoDisponivel;
-    private Date dataCadastro;
 
     public int getId() {
         return id;

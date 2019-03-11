@@ -55,7 +55,20 @@ public class ProdutoDao {
             return null;
         }
     }
-      
+     
+        public static boolean Atualizar(Produto p) {
+        DB db = new DB(true);
+        String sql = 
+                "UPDATE produto SET "
+                + "NOME = '"+p.getNome()+"', "
+                + "DESCRICAO = '"+p.getDescricao()+"', "
+                + "PRECO_COMPRA = "+p.getPrecoDeCompra()+", "
+                + "PRECO_VENDA = "+p.getPrecoDeVenda()+", "
+                + "QUANTIDADE = "+p.getQuantidade()+", "
+                + "DISPONIVEL = "+p.isProdutoDisponivel()+" "
+                + "Where ID = "+p.getId()+"; ";
+        return db.executarAlteracao(sql);
+    }
       
        /*
     
@@ -72,20 +85,6 @@ public class ProdutoDao {
                 + "'"+p.getPrecoDeVenda()+"', "
                 + "'"+p.getQuantidade()+"', "
                 + "'"+p.isProdutoDisponivel()+"');";             
-        return db.executarAlteracao(sql);
-    }
-
-    public static boolean Atualizar(Produto p) {
-        DB db = new DB(true);
-        String sql = 
-                "UPDATE produto SET "
-                + "ID = '"+p.getId()+"', "
-                + "NOME = '"+p.getNome()+"', "
-                + "DESCRICAO = '"+p.getDescricao()+"', "
-                + "PRECO_COMPRA = '"+p.getPrecoDeCompra()+"', "
-                + "PRECO_VENDA = '"+p.getPrecoDeVenda()+"', "
-                + "QUANTIDADE = "+p.getQuantidade()+", "
-                + "DISPONIVEL = '"+p.isProdutoDisponivel()+";";
         return db.executarAlteracao(sql);
     }
 

@@ -50,8 +50,12 @@ public class ProdutoController {
         
     }
     
-    public static void editar(){//neste método deve conter a lógica para editar os dados de um produto já cadastrado. 
-        
+    //neste método deve conter a lógica para editar os dados de um produto já cadastrado.
+    public static boolean Atualizar(int id,String nome, String descrição, Double precoCompra, Double precoVenda, int quantidade, boolean produtoDisponivel){ 
+            
+        Produto p = new Produto(id , nome, descrição, precoCompra, precoVenda, quantidade, produtoDisponivel);
+        return ProdutoDao.Atualizar(p);
+
     }
     
     public static void excluir(){//neste método deve conter a lógica para excluir um produto que já foi cadastrado. 
