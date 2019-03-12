@@ -1,22 +1,48 @@
 /*
- * Os getters e Setters e os métodos ficam nesta classe.
+ * Os getters e Setters ficam nesta classe.
  */
 package br.senac.tads.pi3.gerenprod;
+
+import java.sql.Date;
 
 /**
  * @author bruna.dpsantos
  */
 public class Produto {
+
+        private int id;
+        private String nome;
+        private String descricao;
+        private double precoDeCompra;
+        private double precoDeVenda;
+        private int quantidade;
+        private boolean produtoDisponivel;
+        private Date dataCadastro;
+        
+        public Produto(int id,String nome, String descricao, double precoDeCompra, double precoDeVenda, int quantidade, boolean produtoDisponivel) {
+            
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.precoDeCompra = precoDeCompra;
+        this.precoDeVenda = precoDeVenda;
+        this.quantidade = quantidade;
+        this.produtoDisponivel = produtoDisponivel;
     
-    private int id;
-    private String nome;
-    private String descricao;
-    private double precoDeCompra;
-    private double precoDeVenda;
-    private int quantidade;
-    private boolean produtoDisponivel;
+    }
+
+    public Produto() {
+    }
     
-        public int getId() {
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public int getId() {
         return id;
     }
 
@@ -64,29 +90,12 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public boolean isProdutoDisponivel() {
+    public boolean getProdutoDisponivel() {
         return produtoDisponivel;
     }
 
-    public void setProdutoDisponivel(boolean produtoHDisponivel) {
+    public void setProdutoDisponivel(boolean produtoDisponivel) {
         this.produtoDisponivel = produtoDisponivel;
     }
-    
-    
-    public static void listar(){//neste método deve conter a lógica para listar todos os produtos cadastrados. 
-        
-    } 
-    
-    public static void incluir(){//neste método deve conter a lógica para cadastrar produto na lista de produtos.
-        
-    }
-    
-    public static void editar(){//neste método deve conter a lógica para editar os dados de um produto já cadastrado. 
-        
-    }
-    
-    public static void excluir(){//neste método deve conter a lógica para excluir um produto que já foi cadastrado. 
-        
-    }
-    
+
 }

@@ -28,6 +28,49 @@ public class ProdutoDao {
         JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
         return true;
     }
+      
+      public static ArrayList<Produto> consultarProdutos() {
+        DB db = new DB(true);
+        try {
+            String sql = "SELECT * FROM produto;";
+            ResultSet rs = db.executarConsulta(sql);
+            ArrayList<Produto> produtos = new ArrayList();
+            while (rs.next()) {
+                Produto p = new Produto();
+                p.setId(rs.getInt("ID"));
+                p.setNome(rs.getString("NOME"));
+                p.setDescricao(rs.getString("DESCRICAO"));
+                p.setPrecoDeCompra(rs.getDouble("PRECO_COMPRA"));
+                p.setPrecoDeVenda(rs.getDouble("PRECO_VENDA"));
+                p.setQuantidade(rs.getInt("QUANTIDADE"));
+                p.setProdutoDisponivel(rs.getBoolean("DISPONIVEL"));
+                p.setDataCadastro(rs.getDate("DT_CADASTRO"));
+                produtos.add(p);
+            }
+            db.close();
+            return produtos;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            db.close();
+            return null;
+        }
+    }
+     
+        public static boolean Atualizar(Produto p) {
+        DB db = new DB(true);
+        String sql = 
+                "UPDATE produto SET "
+                + "NOME = '"+p.getNome()+"', "
+                + "DESCRICAO = '"+p.getDescricao()+"', "
+                + "PRECO_COMPRA = "+p.getPrecoDeCompra()+", "
+                + "PRECO_VENDA = "+p.getPrecoDeVenda()+", "
+                + "QUANTIDADE = "+p.getQuantidade()+", "
+                + "DISPONIVEL = "+p.getProdutoDisponivel()+" "
+                + "Where ID = "+p.getId()+"; ";
+        return db.executarAlteracao(sql);
+    }
+      
+       /*
     
     public static boolean Salvar(Produto p) {
         DB db = new DB(true);
@@ -42,25 +85,6 @@ public class ProdutoDao {
                 + "'"+p.getPrecoDeVenda()+"', "
                 + "'"+p.getQuantidade()+"', "
                 + "'"+p.isProdutoDisponivel()+"');";             
-        return db.executarAlteracao(sql);
-    }
-
-    /**
-     * 
-     * @param p
-     * @return 
-     */
-    public static boolean Atualizar(Produto p) {
-        DB db = new DB(true);
-        String sql = 
-                "UPDATE produto SET "
-                + "ID = '"+p.getId()+"', "
-                + "NOME = '"+p.getNome()+"', "
-                + "DESCRICAO = '"+p.getDescricao()+"', "
-                + "PRECO_COMPRA = '"+p.getPrecoDeCompra()+"', "
-                + "PRECO_VENDA = '"+p.getPrecoDeVenda()+"', "
-                + "QUANTIDADE = "+p.getQuantidade()+", "
-                + "DISPONIVEL = '"+p.isProdutoDisponivel()+";";
         return db.executarAlteracao(sql);
     }
 
@@ -123,6 +147,7 @@ public class ProdutoDao {
             return null;
         }
     }
+    */
 }
     
     
