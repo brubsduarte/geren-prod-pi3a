@@ -5,6 +5,11 @@
  */
 package br.senac.tads.pi3.gerenprod;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -14,6 +19,7 @@ public final class ProdutoView extends javax.swing.JFrame {
     private int produtoSelecionado;
     private String modoTela; //"Criar/Editar"
     private final ProdutoController controller = new ProdutoController();
+    private final Color C1 = Color.YELLOW, C2 = Color.GREEN;
 
     /**
      * Creates new form ProdutoView
@@ -137,6 +143,14 @@ public final class ProdutoView extends javax.swing.JFrame {
         btnDisponibilidade.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnDisponibilidade.setText("Disponibilidade");
         btnDisponibilidade.setToolTipText("");
+        btnDisponibilidade.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnDisponibilidadeMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnDisponibilidadeMouseReleased(evt);
+            }
+        });
         btnDisponibilidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDisponibilidadeActionPerformed(evt);
@@ -377,7 +391,7 @@ public final class ProdutoView extends javax.swing.JFrame {
                         Double.parseDouble(txtPrecoCompra.getText()),
                         Double.parseDouble(txtPrecoVenda.getText()),
                         Integer.parseInt(txtQuantidade.getText()),
-                        Boolean.parseBoolean(btnDisponibilidade.getText())
+                        btnDisponibilidade.isSelected()
                 )) {
                     preencherTabelaProdutos();
                     JOptionPane.showMessageDialog(this, "Produto Atualizado com sucesso!");
@@ -411,7 +425,13 @@ public final class ProdutoView extends javax.swing.JFrame {
                 txtPrecoCompra.setText(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 4).toString());
                 txtPrecoVenda.setText(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 5).toString());
                 txtQuantidade.setText(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 6).toString());
-                btnDisponibilidade.setSelected((boolean) tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 7));
+                int tmp =(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 7).toString().compareTo("true"));
+                btnDisponibilidade.setSelected(tmp==0);
+                if(tmp==0){
+                    btnDisponibilidade.setBackground(new Color(0, 1.0f, 0));
+                }else{
+                    btnDisponibilidade.setBackground(new Color(1.0f, 0, 0));
+                }
 
             } else {
                 JOptionPane.showMessageDialog(this, "Selecione um produto para editar!");
@@ -424,6 +444,22 @@ public final class ProdutoView extends javax.swing.JFrame {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         modoTela = "Criar";
     }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnDisponibilidadeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDisponibilidadeMousePressed
+        if(btnDisponibilidade.isSelected()){
+            btnDisponibilidade.setBackground(new Color(0, 1.0f, 0));
+        }else{
+            btnDisponibilidade.setBackground(new Color(1.0f, 0, 0));
+        }
+    }//GEN-LAST:event_btnDisponibilidadeMousePressed
+
+    private void btnDisponibilidadeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDisponibilidadeMouseReleased
+        if(btnDisponibilidade.isSelected()){
+            btnDisponibilidade.setBackground(new Color(0, 1.0f, 0));
+        }else{
+            btnDisponibilidade.setBackground(new Color(1.0f, 0, 0));
+        }
+    }//GEN-LAST:event_btnDisponibilidadeMouseReleased
 
     /**
      * @param args the command line arguments

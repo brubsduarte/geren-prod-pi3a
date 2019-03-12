@@ -65,7 +65,7 @@ public class ProdutoDao {
                 + "PRECO_COMPRA = "+p.getPrecoDeCompra()+", "
                 + "PRECO_VENDA = "+p.getPrecoDeVenda()+", "
                 + "QUANTIDADE = "+p.getQuantidade()+", "
-                + "DISPONIVEL = "+p.isProdutoDisponivel()+" "
+                + "DISPONIVEL = "+p.getProdutoDisponivel()+" "
                 + "Where ID = "+p.getId()+"; ";
         return db.executarAlteracao(sql);
     }

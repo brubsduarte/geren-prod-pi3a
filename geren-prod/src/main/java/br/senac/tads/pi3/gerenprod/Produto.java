@@ -90,11 +90,11 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public boolean isProdutoDisponivel() {
+    public boolean getProdutoDisponivel() {
         return produtoDisponivel;
     }
 
-    public void setProdutoDisponivel(boolean produtoHDisponivel) {
+    public void setProdutoDisponivel(boolean produtoDisponivel) {
         this.produtoDisponivel = produtoDisponivel;
     }
 
