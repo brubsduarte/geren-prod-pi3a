@@ -24,7 +24,9 @@ public class ProdutoDao {
                 return false;
             }
         }
-        listaProduto.add(produto);
+        
+        this.Salvar(produto);
+        
         JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
         return true;
     }
@@ -70,7 +72,7 @@ public class ProdutoDao {
         return db.executarAlteracao(sql);
     }
       
-       /*
+       
     
     public static boolean Salvar(Produto p) {
         DB db = new DB(true);
@@ -83,8 +85,8 @@ public class ProdutoDao {
                 + "'"+p.getDescricao()+"', "
                 + "'"+p.getPrecoDeCompra()+"', "
                 + "'"+p.getPrecoDeVenda()+"', "
-                + "'"+p.getQuantidade()+"', "
-                + "'"+p.isProdutoDisponivel()+"');";             
+                + "'"+p.getQuantidade();
+               //+ "'"+p.getisProdutoDisponivel()+"');";             
         return db.executarAlteracao(sql);
     }
 
@@ -147,7 +149,7 @@ public class ProdutoDao {
             return null;
         }
     }
-    */
+    
 }
     
     
