@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public final class ProdutoView extends javax.swing.JFrame {
-    
+
     private int produtoSelecionado;
     private String modoTela; //"Criar/Editar"
     private final ProdutoController controller = new ProdutoController();
@@ -24,7 +24,6 @@ public final class ProdutoView extends javax.swing.JFrame {
     /**
      * Creates new form ProdutoView
      */
-    
     public ProdutoView() {
         initComponents();
         preencherTabelaProdutos();
@@ -32,7 +31,7 @@ public final class ProdutoView extends javax.swing.JFrame {
 
     public void preencherTabelaProdutos() {
         ArrayList<String[]> listaProdutos = ProdutoController.listar();
-        
+
         DefaultTableModel tmProduto = new DefaultTableModel();
         tmProduto.addColumn("Id");
         tmProduto.addColumn("Data");
@@ -64,7 +63,7 @@ public final class ProdutoView extends javax.swing.JFrame {
     }
 
     public void LimparFormulario() {
-        
+
         txtId.setText("");
         txtNome.setText("");
         txtDescricao.setText("");
@@ -373,35 +372,36 @@ public final class ProdutoView extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
-        if(modoTela.equals("Criar")){
-            
-        Produto produto = new Produto();
+        // if (ValidarFormulario2()) {
+        if (modoTela.equals("Criar")) {
+            if (ProdutoController.Salvar(Integer.parseInt(txtId.getText()),
+                    txtNome.getText(),
+                    txtDescricao.getText(),
+                    Double.parseDouble(txtPrecoCompra.getText()),
+                    Double.parseDouble(txtPrecoVenda.getText()),
+                    Integer.parseInt(txtQuantidade.getText()),
+                    btnDisponibilidade.isSelected()
+            )) {
+                JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
+                LimparFormulario();
+            } else {
+                JOptionPane.showMessageDialog(this, "Falha ao cadastrar produto!");
+            }
 
-        produto.setNome(txtNome.getText());
-        produto.setDescricao(txtDescricao.getText());
-        produto.setPrecoDeCompra(Double.parseDouble(txtPrecoCompra.getText()));
-        produto.setPrecoDeVenda(Double.parseDouble(txtPrecoVenda.getText()));
-        produto.setQuantidade(Integer.parseInt(txtPrecoCompra.getText()));
-        produto.setProdutoDisponivel(true);
-        controller.addProduto(produto);
-        
+        } else if (ProdutoController.Atualizar(Integer.parseInt(txtId.getText()),
+                txtNome.getText(),
+                txtDescricao.getText(),
+                Double.parseDouble(txtPrecoCompra.getText()),
+                Double.parseDouble(txtPrecoVenda.getText()),
+                Integer.parseInt(txtQuantidade.getText()),
+                btnDisponibilidade.isSelected()
+        )) {
+            preencherTabelaProdutos();
+            JOptionPane.showMessageDialog(this, "Produto Atualizado com sucesso!");
+            LimparFormulario();
         } else {
-            if (ProdutoController.Atualizar(Integer.parseInt(txtId.getText()),
-                        txtNome.getText(),
-                        txtDescricao.getText(),
-                        Double.parseDouble(txtPrecoCompra.getText()),
-                        Double.parseDouble(txtPrecoVenda.getText()),
-                        Integer.parseInt(txtQuantidade.getText()),
-                        btnDisponibilidade.isSelected()
-                )) {
-                    preencherTabelaProdutos();
-                    JOptionPane.showMessageDialog(this, "Produto Atualizado com sucesso!");
-                    LimparFormulario();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Falha ao Atualizar produto!");
-                }
+            JOptionPane.showMessageDialog(this, "Falha ao Atualizar produto!");
         }
-
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -419,18 +419,18 @@ public final class ProdutoView extends javax.swing.JFrame {
             if (tblProdutos.getSelectedRow() >= 0) {
                 modoTela = "Editar";
                 LimparFormulario();
-                
+
                 txtId.setText(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 0).toString());
                 txtNome.setText(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 2).toString());
                 txtDescricao.setText(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 3).toString());
                 txtPrecoCompra.setText(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 4).toString());
                 txtPrecoVenda.setText(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 5).toString());
                 txtQuantidade.setText(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 6).toString());
-                int tmp =(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 7).toString().compareTo("true"));
-                btnDisponibilidade.setSelected(tmp==0);
-                if(tmp==0){
+                int tmp = (tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 7).toString().compareTo("true"));
+                btnDisponibilidade.setSelected(tmp == 0);
+                if (tmp == 0) {
                     btnDisponibilidade.setBackground(new Color(0, 1.0f, 0));
-                }else{
+                } else {
                     btnDisponibilidade.setBackground(new Color(1.0f, 0, 0));
                 }
 
@@ -447,17 +447,17 @@ public final class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnDisponibilidadeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDisponibilidadeMousePressed
-        if(btnDisponibilidade.isSelected()){
+        if (btnDisponibilidade.isSelected()) {
             btnDisponibilidade.setBackground(new Color(0, 1.0f, 0));
-        }else{
+        } else {
             btnDisponibilidade.setBackground(new Color(1.0f, 0, 0));
         }
     }//GEN-LAST:event_btnDisponibilidadeMousePressed
 
     private void btnDisponibilidadeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDisponibilidadeMouseReleased
-        if(btnDisponibilidade.isSelected()){
+        if (btnDisponibilidade.isSelected()) {
             btnDisponibilidade.setBackground(new Color(0, 1.0f, 0));
-        }else{
+        } else {
             btnDisponibilidade.setBackground(new Color(1.0f, 0, 0));
         }
     }//GEN-LAST:event_btnDisponibilidadeMouseReleased
