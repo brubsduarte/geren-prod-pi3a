@@ -65,6 +65,9 @@ public final class ProdutoView extends javax.swing.JFrame {
         cboCategoria.setSelectedIndex(0);
         btnDisponibilidade.setSelected(true);
     }
+    
+       
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,7 +93,7 @@ public final class ProdutoView extends javax.swing.JFrame {
         txtPrecoVenda = new javax.swing.JTextField();
         txtQuantidade = new javax.swing.JTextField();
         lblCategoria = new javax.swing.JLabel();
-        cboCategoria = new javax.swing.JComboBox<String>();
+        cboCategoria = new javax.swing.JComboBox<>();
         btnDisponibilidade = new javax.swing.JToggleButton();
         pnlBotoesFormulario = new javax.swing.JPanel();
         btnCancelar = new javax.swing.JButton();
@@ -125,7 +128,7 @@ public final class ProdutoView extends javax.swing.JFrame {
 
         lblCategoria.setText("Categoria:");
 
-        cboCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "item 5" }));
+        cboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "item 5" }));
         cboCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboCategoriaActionPerformed(evt);
@@ -205,6 +208,11 @@ public final class ProdutoView extends javax.swing.JFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlBotoesLayout = new javax.swing.GroupLayout(pnlBotoes);
         pnlBotoes.setLayout(pnlBotoesLayout);
@@ -455,6 +463,27 @@ public final class ProdutoView extends javax.swing.JFrame {
             btnDisponibilidade.setBackground(new Color(1.0f, 0, 0));
         }
     }//GEN-LAST:event_btnDisponibilidadeMouseReleased
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (tblProdutos.getRowCount() >= 0 && tblProdutos.getSelectedRow() >= 0) {
+                int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir?", "Excluir", JOptionPane.YES_NO_OPTION);
+                if(resposta == JOptionPane.YES_OPTION){
+                 int prodoutoId = Integer.parseInt(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 0).toString());
+                 
+            if (ProdutoController.Excluir(prodoutoId)) {
+                this.preencherTabelaProdutos();
+                
+                JOptionPane.showMessageDialog(this, "Produto excluído da base de dados");
+                LimparFormulario();
+                
+            } else {
+                JOptionPane.showMessageDialog(this, "Falha ao excluir o produto!");
+            }
+        }
+        } else {
+            JOptionPane.showMessageDialog(this, "Não há produtos para excluir!");
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments

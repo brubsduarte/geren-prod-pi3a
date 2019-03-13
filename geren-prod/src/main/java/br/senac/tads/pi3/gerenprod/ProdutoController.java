@@ -6,6 +6,7 @@ package br.senac.tads.pi3.gerenprod;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import br.senac.tads.pi3.gerenprod.ProdutoDao;
 
 /**
  *
@@ -58,8 +59,8 @@ public class ProdutoController {
 
     }
 
-    public static void excluir() {//neste método deve conter a lógica para excluir um produto que já foi cadastrado. 
-
+   public static boolean Excluir(int indice) {
+        return ProdutoDao.Excluir(indice);
     }
 
 }
