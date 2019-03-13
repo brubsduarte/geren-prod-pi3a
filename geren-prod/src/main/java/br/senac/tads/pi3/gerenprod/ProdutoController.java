@@ -5,6 +5,7 @@ package br.senac.tads.pi3.gerenprod;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,9 +16,11 @@ public class ProdutoController {
     
     private ProdutoDao produtoDao = new ProdutoDao();
     
-    public boolean addProduto(Produto produto) {
-
-        return produtoDao.cadastroProduto(produto);
+     public static boolean Salvar(int id, String nome, String descricao, double precoDeCompra, double precoDeVenda,
+            int quantidade, boolean produtoDisponivel) {
+        //Salvo na memória
+        Produto p = new Produto(id, nome, descricao, precoDeCompra, precoDeVenda, quantidade, produtoDisponivel);
+        return ProdutoDao.Salvar(p);
     }
     
     public static ArrayList<String[]> listar(){//neste método deve conter a lógica para listar todos os produtos cadastrados. 

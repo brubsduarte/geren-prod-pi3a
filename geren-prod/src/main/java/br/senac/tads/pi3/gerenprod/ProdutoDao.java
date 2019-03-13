@@ -16,21 +16,7 @@ public class ProdutoDao {
     
     private ArrayList<Produto> listaProduto = new ArrayList();
     
-      public boolean cadastroProduto(Produto produto) {
-    
-        for (Produto i: listaProduto) {
-            if (i.getId() == produto.getId()) {
-                JOptionPane.showMessageDialog(null, "Produto já cadastrado!");
-                return false;
-            }
-        }
-        
-        this.Salvar(produto);
-        
-        JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
-        return true;
-    }
-      
+         
       public static ArrayList<Produto> consultarProdutos() {
         DB db = new DB(true);
         try {
@@ -86,7 +72,7 @@ public class ProdutoDao {
                 + "'"+p.getPrecoDeCompra()+"', "
                 + "'"+p.getPrecoDeVenda()+"', "
                 + "'"+p.getQuantidade();
-               //+ "'"+p.getisProdutoDisponivel()+"');";             
+               //+ "'"+p.getisProdutoDisponivel()+"');"; 
         return db.executarAlteracao(sql);
     }
 
