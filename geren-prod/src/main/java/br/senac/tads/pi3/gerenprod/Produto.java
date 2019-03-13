@@ -10,17 +10,28 @@ import java.sql.Date;
  */
 public class Produto {
 
-        private int id;
-        private String nome;
-        private String descricao;
-        private double precoDeCompra;
-        private double precoDeVenda;
-        private int quantidade;
-        private boolean produtoDisponivel;
-        private Date dataCadastro;
-        
-        public Produto(int id,String nome, String descricao, double precoDeCompra, double precoDeVenda, int quantidade, boolean produtoDisponivel) {
-            
+    private int id;
+    private String nome;
+    private String descricao;
+    private double precoDeCompra;
+    private double precoDeVenda;
+    private int quantidade;
+    private boolean produtoDisponivel;
+    private Date dataCadastro;
+
+    public Produto(String nome, String descricao, double precoDeCompra, double precoDeVenda, int quantidade, boolean produtoDisponivel) {
+
+        this.nome = nome;
+        this.descricao = descricao;
+        this.precoDeCompra = precoDeCompra;
+        this.precoDeVenda = precoDeVenda;
+        this.quantidade = quantidade;
+        this.produtoDisponivel = produtoDisponivel;
+
+    }
+    
+    public Produto(int id, String nome, String descricao, double precoDeCompra, double precoDeVenda, int quantidade, boolean produtoDisponivel) {
+
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -28,12 +39,12 @@ public class Produto {
         this.precoDeVenda = precoDeVenda;
         this.quantidade = quantidade;
         this.produtoDisponivel = produtoDisponivel;
-    
+
     }
 
     public Produto() {
     }
-    
+
     public Date getDataCadastro() {
         return dataCadastro;
     }
@@ -90,7 +101,7 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public boolean getProdutoDisponivel() {
+    public boolean isProdutoDisponivel() {
         return produtoDisponivel;
     }
 

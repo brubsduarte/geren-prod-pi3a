@@ -11,25 +11,22 @@ import javax.swing.JOptionPane;
  *
  * @author bruna.dpsantos
  */
-
 public class ProdutoController {
-    
-    private ProdutoDao produtoDao = new ProdutoDao();
-    
-     public static boolean Salvar(int id, String nome, String descricao, double precoDeCompra, double precoDeVenda,
+
+    public static boolean Salvar(String nome, String descricao, double precoDeCompra, double precoDeVenda,
             int quantidade, boolean produtoDisponivel) {
         //Salvo na memória
-        Produto p = new Produto(id, nome, descricao, precoDeCompra, precoDeVenda, quantidade, produtoDisponivel);
+        Produto p = new Produto(nome, descricao, precoDeCompra, precoDeVenda, quantidade, produtoDisponivel);
         return ProdutoDao.Salvar(p);
     }
-    
-    public static ArrayList<String[]> listar(){//neste método deve conter a lógica para listar todos os produtos cadastrados. 
+
+    public static ArrayList<String[]> listar() {//neste método deve conter a lógica para listar todos os produtos cadastrados. 
         ArrayList<Produto> produtos = ProdutoDao.consultarProdutos();
-        
+
         ArrayList<String[]> listaProdutos = new ArrayList<>();
-        
+
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        
+
         for (int i = 0; i < produtos.size(); i++) {
             String[] strings = new String[]{
                 String.valueOf(produtos.get(i).getId()),
@@ -39,7 +36,7 @@ public class ProdutoController {
                 Double.toString(produtos.get(i).getPrecoDeCompra()),
                 Double.toString(produtos.get(i).getPrecoDeVenda()),
                 String.valueOf(produtos.get(i).getQuantidade()),
-                Boolean.valueOf(produtos.get(i).getProdutoDisponivel()).toString(),
+                produtos.get(i).isProdutoDisponivel() ? "SIM" : "NÃO",
             };
 
             listaProdutos.add(strings);
@@ -47,22 +44,22 @@ public class ProdutoController {
 
         return listaProdutos;
 
-    } 
-    
-    public static void incluir(){//neste método deve conter a lógica para cadastrar produto na lista de produtos.
-        
     }
-    
+
+    public static void incluir() {//neste método deve conter a lógica para cadastrar produto na lista de produtos.
+
+    }
+
     //neste método deve conter a lógica para editar os dados de um produto já cadastrado.
-    public static boolean Atualizar(int id,String nome, String descrição, Double precoCompra, Double precoVenda, int quantidade, boolean produtoDisponivel){ 
-            
-        Produto p = new Produto(id , nome, descrição, precoCompra, precoVenda, quantidade, produtoDisponivel);
+    public static boolean Atualizar(int id, String nome, String descrição, Double precoCompra, Double precoVenda, int quantidade, boolean produtoDisponivel) {
+
+        Produto p = new Produto(id, nome, descrição, precoCompra, precoVenda, quantidade, produtoDisponivel);
         return ProdutoDao.Atualizar(p);
 
     }
-    
-    public static void excluir(){//neste método deve conter a lógica para excluir um produto que já foi cadastrado. 
-        
+
+    public static void excluir() {//neste método deve conter a lógica para excluir um produto que já foi cadastrado. 
+
     }
-    
+
 }

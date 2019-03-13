@@ -6,26 +6,20 @@
 package br.senac.tads.pi3.gerenprod;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public final class ProdutoView extends javax.swing.JFrame {
 
-    private int produtoSelecionado;
-    private String modoTela; //"Criar/Editar"
-    private final ProdutoController controller = new ProdutoController();
-    private final Color C1 = Color.YELLOW, C2 = Color.GREEN;
+    private boolean isModoTelaCriar; //"Criar/Editar"
 
     /**
      * Creates new form ProdutoView
      */
     public ProdutoView() {
         initComponents();
+        isModoTelaCriar = true;
         preencherTabelaProdutos();
     }
 
@@ -47,9 +41,7 @@ public final class ProdutoView extends javax.swing.JFrame {
         }
 
         tblProdutos.setModel(tmProduto);
-
-        tblProdutos.setAutoscrolls(true);
-
+  
         tblProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
         tblProdutos.getColumnModel().getColumn(1).setPreferredWidth(80);
         tblProdutos.getColumnModel().getColumn(2).setPreferredWidth(150);
@@ -98,7 +90,7 @@ public final class ProdutoView extends javax.swing.JFrame {
         txtPrecoVenda = new javax.swing.JTextField();
         txtQuantidade = new javax.swing.JTextField();
         lblCategoria = new javax.swing.JLabel();
-        cboCategoria = new javax.swing.JComboBox<>();
+        cboCategoria = new javax.swing.JComboBox<String>();
         btnDisponibilidade = new javax.swing.JToggleButton();
         pnlBotoesFormulario = new javax.swing.JPanel();
         btnCancelar = new javax.swing.JButton();
@@ -133,7 +125,7 @@ public final class ProdutoView extends javax.swing.JFrame {
 
         lblCategoria.setText("Categoria:");
 
-        cboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "item 5" }));
+        cboCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "item 5" }));
         cboCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboCategoriaActionPerformed(evt);
@@ -263,6 +255,7 @@ public final class ProdutoView extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tblProdutos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane1.setViewportView(tblProdutos);
 
         javax.swing.GroupLayout pnlTabelaLayout = new javax.swing.GroupLayout(pnlTabela);
@@ -373,8 +366,8 @@ public final class ProdutoView extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
         // if (ValidarFormulario2()) {
-        if (modoTela.equals("Criar")) {
-            if (ProdutoController.Salvar(Integer.parseInt(txtId.getText()),
+        if (isModoTelaCriar) {
+            if (ProdutoController.Salvar(
                     txtNome.getText(),
                     txtDescricao.getText(),
                     Double.parseDouble(txtPrecoCompra.getText()),
@@ -384,6 +377,7 @@ public final class ProdutoView extends javax.swing.JFrame {
             )) {
                 JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
                 LimparFormulario();
+                preencherTabelaProdutos();
             } else {
                 JOptionPane.showMessageDialog(this, "Falha ao cadastrar produto!");
             }
@@ -417,7 +411,7 @@ public final class ProdutoView extends javax.swing.JFrame {
 
         if (tblProdutos.getRowCount() > 0) {
             if (tblProdutos.getSelectedRow() >= 0) {
-                modoTela = "Editar";
+                isModoTelaCriar = false;
                 LimparFormulario();
 
                 txtId.setText(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 0).toString());
@@ -426,7 +420,7 @@ public final class ProdutoView extends javax.swing.JFrame {
                 txtPrecoCompra.setText(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 4).toString());
                 txtPrecoVenda.setText(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 5).toString());
                 txtQuantidade.setText(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 6).toString());
-                int tmp = (tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 7).toString().compareTo("true"));
+                int tmp = (tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 7).toString().compareTo("SIM"));
                 btnDisponibilidade.setSelected(tmp == 0);
                 if (tmp == 0) {
                     btnDisponibilidade.setBackground(new Color(0, 1.0f, 0));
@@ -443,7 +437,7 @@ public final class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        modoTela = "Criar";
+        isModoTelaCriar = true;
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnDisponibilidadeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDisponibilidadeMousePressed

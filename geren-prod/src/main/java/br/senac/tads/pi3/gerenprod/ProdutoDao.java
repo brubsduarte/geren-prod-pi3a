@@ -6,18 +6,14 @@ package br.senac.tads.pi3.gerenprod;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author bruna.dpsantos
  */
 public class ProdutoDao {
-    
-    private ArrayList<Produto> listaProduto = new ArrayList();
-    
-         
-      public static ArrayList<Produto> consultarProdutos() {
+
+    public static ArrayList<Produto> consultarProdutos() {
         DB db = new DB(true);
         try {
             String sql = "SELECT * FROM produto;";
@@ -43,42 +39,39 @@ public class ProdutoDao {
             return null;
         }
     }
-     
-        public static boolean Atualizar(Produto p) {
+
+    public static boolean Atualizar(Produto p) {
         DB db = new DB(true);
-        String sql = 
-                "UPDATE produto SET "
-                + "NOME = '"+p.getNome()+"', "
-                + "DESCRICAO = '"+p.getDescricao()+"', "
-                + "PRECO_COMPRA = "+p.getPrecoDeCompra()+", "
-                + "PRECO_VENDA = "+p.getPrecoDeVenda()+", "
-                + "QUANTIDADE = "+p.getQuantidade()+", "
-                + "DISPONIVEL = "+p.getProdutoDisponivel()+" "
-                + "Where ID = "+p.getId()+"; ";
+        String sql
+                = "UPDATE produto SET "
+                + "NOME = '" + p.getNome() + "', "
+                + "DESCRICAO = '" + p.getDescricao() + "', "
+                + "PRECO_COMPRA = " + p.getPrecoDeCompra() + ", "
+                + "PRECO_VENDA = " + p.getPrecoDeVenda() + ", "
+                + "QUANTIDADE = " + p.getQuantidade() + ", "
+                + "DISPONIVEL = " + p.isProdutoDisponivel() + " "
+                + "Where ID = " + p.getId() + "; ";
         return db.executarAlteracao(sql);
     }
-      
-       
-    
+
     public static boolean Salvar(Produto p) {
         DB db = new DB(true);
-        String sql = 
-                "INSERT INTO produto "
-                + "(ID,NOME, DESCRICAO, PRECO_COMPRA, PRECO_VENDA, QUANTIDADE, DISPONIVEL, DT_CADASTRO)"
+        String sql
+                = "INSERT INTO produto "
+                + "(NOME, DESCRICAO, PRECO_COMPRA, PRECO_VENDA, QUANTIDADE, DISPONIVEL)"
                 + "VALUES ("
-                + "'"+p.getId()+"', "
-                + "'"+p.getNome()+"', "
-                + "'"+p.getDescricao()+"', "
-                + "'"+p.getPrecoDeCompra()+"', "
-                + "'"+p.getPrecoDeVenda()+"', "
-                + "'"+p.getQuantidade();
-               //+ "'"+p.getisProdutoDisponivel()+"');"; 
+                + "'" + p.getNome() + "', "
+                + "'" + p.getDescricao() + "', "
+                + p.getPrecoDeCompra() + ", "
+                + p.getPrecoDeVenda() + ", "
+                + p.getQuantidade() + ", "
+                + p.isProdutoDisponivel() + ");"; 
         return db.executarAlteracao(sql);
     }
 
     public static boolean Excluir(int produtoID) {
         DB db = new DB(true);
-        String sql = "DELETE FROM produto Where ID = "+produtoID+";";
+        String sql = "DELETE FROM produto Where ID = " + produtoID + ";";
         return db.executarAlteracao(sql);
     }
 
@@ -112,9 +105,9 @@ public class ProdutoDao {
         try {
             String sql = "SELECT * FROM produto WHERE ";
             if (id != 0) {
-                sql += "ID = "+id+" AND ";
+                sql += "ID = " + id + " AND ";
             }
-            sql += "titulo LIKE '%"+titulo+"%' AND autor LIKE '%"+autor+"%' AND genero LIKE '%"+genero+"%' AND editora LIKE '%"+editora+"%';";
+            sql += "titulo LIKE '%" + titulo + "%' AND autor LIKE '%" + autor + "%' AND genero LIKE '%" + genero + "%' AND editora LIKE '%" + editora + "%';";
             ResultSet rs = db.executarConsulta(sql);
             ArrayList<Produto> produtos = new ArrayList();
             while (rs.next()) {
@@ -135,8 +128,5 @@ public class ProdutoDao {
             return null;
         }
     }
-    
-}
-    
-    
 
+}
