@@ -16,19 +16,7 @@ public class ProdutoDao {
     
     private ArrayList<Produto> listaProduto = new ArrayList();
     
-      public boolean cadastroProduto(Produto produto) {
-    
-        for (Produto i: listaProduto) {
-            if (i.getId() == produto.getId()) {
-                JOptionPane.showMessageDialog(null, "Produto já cadastrado!");
-                return false;
-            }
-        }
-        listaProduto.add(produto);
-        JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
-        return true;
-    }
-      
+         
       public static ArrayList<Produto> consultarProdutos() {
         DB db = new DB(true);
         try {
@@ -55,9 +43,22 @@ public class ProdutoDao {
             return null;
         }
     }
+     
+        public static boolean Atualizar(Produto p) {
+        DB db = new DB(true);
+        String sql = 
+                "UPDATE produto SET "
+                + "NOME = '"+p.getNome()+"', "
+                + "DESCRICAO = '"+p.getDescricao()+"', "
+                + "PRECO_COMPRA = "+p.getPrecoDeCompra()+", "
+                + "PRECO_VENDA = "+p.getPrecoDeVenda()+", "
+                + "QUANTIDADE = "+p.getQuantidade()+", "
+                + "DISPONIVEL = "+p.getProdutoDisponivel()+" "
+                + "Where ID = "+p.getId()+"; ";
+        return db.executarAlteracao(sql);
+    }
       
-      
-       /*
+       
     
     public static boolean Salvar(Produto p) {
         DB db = new DB(true);
@@ -70,22 +71,8 @@ public class ProdutoDao {
                 + "'"+p.getDescricao()+"', "
                 + "'"+p.getPrecoDeCompra()+"', "
                 + "'"+p.getPrecoDeVenda()+"', "
-                + "'"+p.getQuantidade()+"', "
-                + "'"+p.isProdutoDisponivel()+"');";             
-        return db.executarAlteracao(sql);
-    }
-
-    public static boolean Atualizar(Produto p) {
-        DB db = new DB(true);
-        String sql = 
-                "UPDATE produto SET "
-                + "ID = '"+p.getId()+"', "
-                + "NOME = '"+p.getNome()+"', "
-                + "DESCRICAO = '"+p.getDescricao()+"', "
-                + "PRECO_COMPRA = '"+p.getPrecoDeCompra()+"', "
-                + "PRECO_VENDA = '"+p.getPrecoDeVenda()+"', "
-                + "QUANTIDADE = "+p.getQuantidade()+", "
-                + "DISPONIVEL = '"+p.isProdutoDisponivel()+";";
+                + "'"+p.getQuantidade();
+               //+ "'"+p.getisProdutoDisponivel()+"');"; 
         return db.executarAlteracao(sql);
     }
 
@@ -148,7 +135,7 @@ public class ProdutoDao {
             return null;
         }
     }
-    */
+    
 }
     
     

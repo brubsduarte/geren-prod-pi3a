@@ -5,6 +5,7 @@ package br.senac.tads.pi3.gerenprod;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,9 +16,11 @@ public class ProdutoController {
     
     private ProdutoDao produtoDao = new ProdutoDao();
     
-    public boolean addProduto(Produto produto) {
-
-        return produtoDao.cadastroProduto(produto);
+     public static boolean Salvar(int id, String nome, String descricao, double precoDeCompra, double precoDeVenda,
+            int quantidade, boolean produtoDisponivel) {
+        //Salvo na memória
+        Produto p = new Produto(id, nome, descricao, precoDeCompra, precoDeVenda, quantidade, produtoDisponivel);
+        return ProdutoDao.Salvar(p);
     }
     
     public static ArrayList<String[]> listar(){//neste método deve conter a lógica para listar todos os produtos cadastrados. 
@@ -36,7 +39,7 @@ public class ProdutoController {
                 Double.toString(produtos.get(i).getPrecoDeCompra()),
                 Double.toString(produtos.get(i).getPrecoDeVenda()),
                 String.valueOf(produtos.get(i).getQuantidade()),
-                produtos.get(i).isProdutoDisponivel() ? "SIM" : "NÃO",
+                Boolean.valueOf(produtos.get(i).getProdutoDisponivel()).toString(),
             };
 
             listaProdutos.add(strings);
@@ -50,8 +53,12 @@ public class ProdutoController {
         
     }
     
-    public static void editar(){//neste método deve conter a lógica para editar os dados de um produto já cadastrado. 
-        
+    //neste método deve conter a lógica para editar os dados de um produto já cadastrado.
+    public static boolean Atualizar(int id,String nome, String descrição, Double precoCompra, Double precoVenda, int quantidade, boolean produtoDisponivel){ 
+            
+        Produto p = new Produto(id , nome, descrição, precoCompra, precoVenda, quantidade, produtoDisponivel);
+        return ProdutoDao.Atualizar(p);
+
     }
     
     public static void excluir(){//neste método deve conter a lógica para excluir um produto que já foi cadastrado. 
