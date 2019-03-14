@@ -15,9 +15,9 @@ import br.senac.tads.pi3.gerenprod.ProdutoDao;
 public class ProdutoController {
 
     public static boolean Salvar(String nome, String descricao, double precoDeCompra, double precoDeVenda,
-            int quantidade, boolean produtoDisponivel) {
+            int quantidade, boolean produtoDisponivel, String categorias) {
         //Salvo na memória
-        Produto p = new Produto(nome, descricao, precoDeCompra, precoDeVenda, quantidade, produtoDisponivel);
+        Produto p = new Produto(nome, descricao, precoDeCompra, precoDeVenda, quantidade, produtoDisponivel, categorias );
         return ProdutoDao.Salvar(p);
     }
 
@@ -53,9 +53,9 @@ public class ProdutoController {
     }
 
     //neste método deve conter a lógica para editar os dados de um produto já cadastrado.
-    public static boolean Atualizar(int id, String nome, String descrição, Double precoCompra, Double precoVenda, int quantidade, boolean produtoDisponivel) {
+    public static boolean Atualizar(int id, String nome, String descrição, Double precoCompra, Double precoVenda, int quantidade, boolean produtoDisponivel, String categorias) {
 
-        Produto p = new Produto(id, nome, descrição, precoCompra, precoVenda, quantidade, produtoDisponivel);
+        Produto p = new Produto(id, nome, descrição, precoCompra, precoVenda, quantidade, produtoDisponivel, categorias);
         return ProdutoDao.Atualizar(p);
 
     }

@@ -20,7 +20,7 @@ public class Produto {
     private Date dataCadastro;
     private String categorias;
 
-    public Produto(String nome, String descricao, double precoDeCompra, double precoDeVenda, int quantidade, boolean produtoDisponivel) {
+    public Produto(String nome, String descricao, double precoDeCompra, double precoDeVenda, int quantidade, boolean produtoDisponivel, String categorias) {
 
         this.nome = nome;
         this.descricao = descricao;
@@ -28,10 +28,11 @@ public class Produto {
         this.precoDeVenda = precoDeVenda;
         this.quantidade = quantidade;
         this.produtoDisponivel = produtoDisponivel;
+        this.categorias = categorias;
 
     }
     
-    public Produto(int id, String nome, String descricao, double precoDeCompra, double precoDeVenda, int quantidade, boolean produtoDisponivel) {
+    public Produto(int id, String nome, String descricao, double precoDeCompra, double precoDeVenda, int quantidade, boolean produtoDisponivel, String categorias) {
 
         this.id = id;
         this.nome = nome;
@@ -40,6 +41,7 @@ public class Produto {
         this.precoDeVenda = precoDeVenda;
         this.quantidade = quantidade;
         this.produtoDisponivel = produtoDisponivel;
+        this.categorias = categorias;
 
     }
 

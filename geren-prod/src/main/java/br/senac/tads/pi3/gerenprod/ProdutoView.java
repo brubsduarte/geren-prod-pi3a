@@ -7,6 +7,7 @@ package br.senac.tads.pi3.gerenprod;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import javafx.scene.control.CheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -65,9 +66,57 @@ public final class ProdutoView extends javax.swing.JFrame {
         txtPrecoVenda.setText("");
         txtQuantidade.setText("");
         btnDisponibilidade.setSelected(true);
+        jCheckBox1.setSelected(false);
+        jCheckBox2.setSelected(false);
+        jCheckBox3.setSelected(false);
+        jCheckBox4.setSelected(false);
+        jCheckBox5.setSelected(false);
     }
     
+       private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {                                             
+       // TODO add your handling code here:
+       String[] categoriaSelecionada = new String[5];
        
+       if(jCheckBox1.isSelected())
+       {
+           categoriaSelecionada[0] = jCheckBox1.getText();
+       }
+       
+       if(jCheckBox2.isSelected()){
+           categoriaSelecionada[1] = jCheckBox2.getText();
+       }
+       
+       if(jCheckBox3.isSelected()){
+           categoriaSelecionada[2] = jCheckBox3.getText();
+       }
+       
+       if(jCheckBox4.isSelected()){
+           categoriaSelecionada[3] = jCheckBox4.getText();
+       }
+       
+       if(jCheckBox5.isSelected()){
+           categoriaSelecionada[4] = jCheckBox5.getText();
+       }
+       
+       String retorno = "";
+       for (String s: categoriaSelecionada) {           
+           if(s != null && !s.isEmpty())
+           {
+                retorno = retorno + s + ","   ;
+           }
+       }
+       
+       if(!retorno.isEmpty())
+       {
+           // removo a última vírgula
+           retorno = retorno.substring(0, retorno.length() - 1);
+       }
+       
+       
+       JOptionPane.showMessageDialog(null, retorno);
+       
+       
+   }   
     
 
     /**
@@ -150,7 +199,7 @@ public final class ProdutoView extends javax.swing.JFrame {
             }
         });
 
-        pnlBotoesFormulario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlBotoesFormulario.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -187,9 +236,9 @@ public final class ProdutoView extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlTabela.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlTabela.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
 
-        pnlBotoes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlBotoes.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
 
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -287,10 +336,25 @@ public final class ProdutoView extends javax.swing.JFrame {
         );
 
         jCheckBox1.setText("1");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         jCheckBox2.setText("2");
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
 
         jCheckBox3.setText("3");
+        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox3ActionPerformed(evt);
+            }
+        });
 
         jCheckBox4.setText("4");
         jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
@@ -300,6 +364,11 @@ public final class ProdutoView extends javax.swing.JFrame {
         });
 
         jCheckBox5.setText("5");
+        jCheckBox5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -375,11 +444,12 @@ public final class ProdutoView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCategoria)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jCheckBox3)
-                            .addComponent(jCheckBox5))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jCheckBox1)
+                                .addComponent(jCheckBox3)
+                                .addComponent(jCheckBox5)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jCheckBox2)
@@ -402,16 +472,23 @@ public final class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDisponibilidadeActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-
+String[] categoriaSelecionada = new String[5];
         // if (ValidarFormulario2()) {
         if (isModoTelaCriar) {
+       
             if (ProdutoController.Salvar(
                     txtNome.getText(),
                     txtDescricao.getText(),
                     Double.parseDouble(txtPrecoCompra.getText()),
                     Double.parseDouble(txtPrecoVenda.getText()),
                     Integer.parseInt(txtQuantidade.getText()),
-                    btnDisponibilidade.isSelected()
+                    btnDisponibilidade.isSelected(),
+                    jCheckBox1.isSelected()
+                    
+                    
+                    
+                    
+                    
             )) {
                 JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
                 LimparFormulario();
@@ -434,6 +511,8 @@ public final class ProdutoView extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Falha ao Atualizar produto!");
         }
+        
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -513,8 +592,24 @@ public final class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_jCheckBox4ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+    
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+  
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox5ActionPerformed
 
     /**
      * @param args the command line arguments
