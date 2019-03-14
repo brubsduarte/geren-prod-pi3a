@@ -76,32 +76,6 @@ public class ProdutoDao {
         return db.executarAlteracao(sql);
     }
 
-    public static ArrayList<Produto> getProdutos() {
-        DB db = new DB(true);
-        try {
-            String sql = "SELECT produto.ID,produto.NOME,produto.DESCRICAO,produto.PRECO_COMPRA,produto.PRECO_VENDA,produto.QUANTIDADE,GROUP_CONCAT(categoria.NOME SEPARATOR ', ') as CATEGORIAS FROM produto LEFT JOIN produto_categoria ON produto.ID = produto_categoria.ID_PRODUTO LEFT JOIN categoria ON categoria.ID = produto_categoria.ID_CATEGORIA GROUP BY produto.ID;";
-            ResultSet rs = db.executarConsulta(sql);
-            ArrayList<Produto> produtos = new ArrayList();
-            while (rs.next()) {
-                Produto p = new Produto();
-                p.setId(rs.getInt("ID"));
-                p.setNome(rs.getString("NOME"));
-                p.setDescricao(rs.getString("DESCRICAO"));
-                p.setPrecoDeCompra(rs.getDouble("PRECO_COMPRA"));
-                p.setPrecoDeVenda(rs.getDouble("PRECO_VENDA"));
-                p.setQuantidade(rs.getInt("QUANTIDADE"));
-                p.setCategorias(rs.getString("CATEGORIAS"));
-                produtos.add(p);
-            }
-            db.close();
-            return produtos;
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            db.close();
-            return null;
-        }
-    }
-
     public static ArrayList<Produto> filtrarProdutos(int id, String titulo, String autor, String genero, String editora) {
         DB db = new DB(true);
         try {
