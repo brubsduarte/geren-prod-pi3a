@@ -18,6 +18,7 @@ public class Produto {
     private int quantidade;
     private boolean produtoDisponivel;
     private Date dataCadastro;
+    private String categorias;
 
     public Produto(String nome, String descricao, double precoDeCompra, double precoDeVenda, int quantidade, boolean produtoDisponivel) {
 
@@ -107,6 +108,14 @@ public class Produto {
 
     public void setProdutoDisponivel(boolean produtoDisponivel) {
         this.produtoDisponivel = produtoDisponivel;
+    }
+    
+    public String getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(String categorias) {
+        this.categorias = categorias;
     }
 
 }

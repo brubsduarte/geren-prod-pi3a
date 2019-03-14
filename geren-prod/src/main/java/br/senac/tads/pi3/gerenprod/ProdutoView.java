@@ -35,6 +35,7 @@ public final class ProdutoView extends javax.swing.JFrame {
         tmProduto.addColumn("$ Venda");
         tmProduto.addColumn("Qtda");
         tmProduto.addColumn("Disponibilidade");
+        tmProduto.addColumn("Categorias");
 
         for (String[] c : listaProdutos) {
             tmProduto.addRow(c);
@@ -50,6 +51,7 @@ public final class ProdutoView extends javax.swing.JFrame {
         tblProdutos.getColumnModel().getColumn(5).setPreferredWidth(70);
         tblProdutos.getColumnModel().getColumn(6).setPreferredWidth(60);
         tblProdutos.getColumnModel().getColumn(7).setPreferredWidth(100);
+        tblProdutos.getColumnModel().getColumn(8).setPreferredWidth(300);
 
         this.pack();
     }

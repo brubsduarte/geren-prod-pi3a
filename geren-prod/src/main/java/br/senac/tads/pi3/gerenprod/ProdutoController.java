@@ -38,6 +38,7 @@ public class ProdutoController {
                 Double.toString(produtos.get(i).getPrecoDeVenda()),
                 String.valueOf(produtos.get(i).getQuantidade()),
                 produtos.get(i).isProdutoDisponivel() ? "SIM" : "NÃO",
+                produtos.get(i).getCategorias()
             };
 
             listaProdutos.add(strings);

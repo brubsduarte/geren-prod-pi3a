@@ -16,7 +16,7 @@ public class ProdutoDao {
     public static ArrayList<Produto> consultarProdutos() {
         DB db = new DB(true);
         try {
-            String sql = "SELECT * FROM produto;";
+            String sql = "SELECT produto.ID,produto.NOME,produto.DESCRICAO,produto.PRECO_COMPRA,produto.PRECO_VENDA,produto.QUANTIDADE,produto.DISPONIVEL,produto.DT_CADASTRO,GROUP_CONCAT(categoria.NOME SEPARATOR ', ') as CATEGORIAS FROM produto LEFT JOIN produto_categoria ON produto.ID = produto_categoria.ID_PRODUTO LEFT JOIN categoria ON categoria.ID = produto_categoria.ID_CATEGORIA GROUP BY produto.ID;";
             ResultSet rs = db.executarConsulta(sql);
             ArrayList<Produto> produtos = new ArrayList();
             while (rs.next()) {
@@ -29,6 +29,7 @@ public class ProdutoDao {
                 p.setQuantidade(rs.getInt("QUANTIDADE"));
                 p.setProdutoDisponivel(rs.getBoolean("DISPONIVEL"));
                 p.setDataCadastro(rs.getDate("DT_CADASTRO"));
+                p.setCategorias(rs.getString("CATEGORIAS"));
                 produtos.add(p);
             }
             db.close();
@@ -78,7 +79,7 @@ public class ProdutoDao {
     public static ArrayList<Produto> getProdutos() {
         DB db = new DB(true);
         try {
-            String sql = "SELECT * FROM produto;";
+            String sql = "SELECT produto.ID,produto.NOME,produto.DESCRICAO,produto.PRECO_COMPRA,produto.PRECO_VENDA,produto.QUANTIDADE,GROUP_CONCAT(categoria.NOME SEPARATOR ', ') as CATEGORIAS FROM produto LEFT JOIN produto_categoria ON produto.ID = produto_categoria.ID_PRODUTO LEFT JOIN categoria ON categoria.ID = produto_categoria.ID_CATEGORIA GROUP BY produto.ID;";
             ResultSet rs = db.executarConsulta(sql);
             ArrayList<Produto> produtos = new ArrayList();
             while (rs.next()) {
@@ -89,6 +90,7 @@ public class ProdutoDao {
                 p.setPrecoDeCompra(rs.getDouble("PRECO_COMPRA"));
                 p.setPrecoDeVenda(rs.getDouble("PRECO_VENDA"));
                 p.setQuantidade(rs.getInt("QUANTIDADE"));
+                p.setCategorias(rs.getString("CATEGORIAS"));
                 produtos.add(p);
             }
             db.close();
