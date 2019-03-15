@@ -13,6 +13,27 @@ import java.util.ArrayList;
  */
 public class ProdutoDao {
 
+    public static ArrayList<Categoria> consultarCategorias() {
+        DB db = new DB(true);
+        try {
+            String sql = "SELECT * FROM categoria;";
+            ResultSet rs = db.executarConsulta(sql);
+            ArrayList<Categoria> categorias = new ArrayList();
+            while (rs.next()) {
+                Categoria c = new Categoria();
+                c.setId(rs.getInt("ID"));
+                c.setNome(rs.getString("NOME"));
+                categorias.add(c);
+            }
+            db.close();
+            return categorias;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            db.close();
+            return null;
+        }
+    }
+    
     public static ArrayList<Produto> consultarProdutos() {
         DB db = new DB(true);
         try {

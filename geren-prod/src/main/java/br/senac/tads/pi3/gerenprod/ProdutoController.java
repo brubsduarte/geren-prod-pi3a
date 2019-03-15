@@ -20,6 +20,17 @@ public class ProdutoController {
         Produto p = new Produto(nome, descricao, precoDeCompra, precoDeVenda, quantidade, produtoDisponivel, categorias );
         return ProdutoDao.Salvar(p);
     }
+    
+    public static ArrayList<String> listarCategorias() {//neste método deve conter a lógica para listar todos os produtos cadastrados. 
+        ArrayList<Categoria> categorias = ProdutoDao.consultarCategorias();
+        ArrayList<String> listaCategorias = new ArrayList<>();
+
+        for (int i = 0; i < categorias.size(); i++) {
+            listaCategorias.add(String.valueOf(categorias.get(i).getId()) + " - " + categorias.get(i).getNome());
+        }
+
+        return listaCategorias;
+    }
 
     public static ArrayList<String[]> listar() {//neste método deve conter a lógica para listar todos os produtos cadastrados. 
         ArrayList<Produto> produtos = ProdutoDao.consultarProdutos();

@@ -8,6 +8,7 @@ package br.senac.tads.pi3.gerenprod;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +24,7 @@ public final class ProdutoView extends javax.swing.JFrame {
         initComponents();
         isModoTelaCriar = true;
         preencherTabelaProdutos();
+        preencherListaCategorias();
     }
 
     public void preencherTabelaProdutos() {
@@ -56,6 +58,19 @@ public final class ProdutoView extends javax.swing.JFrame {
         tblProdutos.getColumnModel().getColumn(8).setPreferredWidth(300);
 
         this.pack();
+    }
+    
+    public void preencherListaCategorias() {
+        ArrayList<String> listaCategorias = ProdutoController.listarCategorias();
+        
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        for (String categoria : listaCategorias) {
+            listModel.addElement(categoria);
+        }
+        
+        jlistCategoria.setModel(listModel);
+        
+        //this.pack();
     }
 
     public void LimparFormulario() {
