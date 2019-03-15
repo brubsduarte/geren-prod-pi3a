@@ -16,7 +16,7 @@ public class ProdutoDao {
     public static ArrayList<Produto> consultarProdutos() {
         DB db = new DB(true);
         try {
-            String sql = "SELECT produto.ID,produto.NOME,produto.DESCRICAO,produto.PRECO_COMPRA,produto.PRECO_VENDA,produto.QUANTIDADE,produto.DISPONIVEL,produto.DT_CADASTRO,GROUP_CONCAT(categoria.NOME SEPARATOR ', ') as CATEGORIAS FROM produto LEFT JOIN produto_categoria ON produto.ID = produto_categoria.ID_PRODUTO LEFT JOIN categoria ON categoria.ID = produto_categoria.ID_CATEGORIA GROUP BY produto.ID;";
+            String sql = "SELECT produto.ID,produto.NOME,produto.DESCRICAO,produto.PRECO_COMPRA,produto.PRECO_VENDA,produto.QUANTIDADE,produto.DISPONIVEL,produto.DT_CADASTRO,GROUP_CONCAT(categoria.ID,'-', categoria.NOME SEPARATOR ', ') as CATEGORIAS FROM produto LEFT JOIN produto_categoria ON produto.ID = produto_categoria.ID_PRODUTO LEFT JOIN categoria ON categoria.ID = produto_categoria.ID_CATEGORIA GROUP BY produto.ID;";
             ResultSet rs = db.executarConsulta(sql);
             ArrayList<Produto> produtos = new ArrayList();
             while (rs.next()) {

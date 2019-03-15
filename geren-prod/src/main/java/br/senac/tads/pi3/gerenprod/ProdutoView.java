@@ -8,7 +8,6 @@ package br.senac.tads.pi3.gerenprod;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.control.CheckBox;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -68,11 +67,6 @@ public final class ProdutoView extends javax.swing.JFrame {
         txtPrecoVenda.setText("");
         txtQuantidade.setText("");
         btnDisponibilidade.setSelected(true);
-        jCheckBox1.setSelected(false);
-        jCheckBox2.setSelected(false);
-        jCheckBox3.setSelected(false);
-        jCheckBox4.setSelected(false);
-        jCheckBox5.setSelected(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -106,11 +100,8 @@ public final class ProdutoView extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProdutos = new javax.swing.JTable();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jlistCategoria = new javax.swing.JList();
 
         jToggleButton1.setText("jToggleButton1");
 
@@ -287,40 +278,12 @@ public final class ProdutoView extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jCheckBox1.setText("1");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
+        jlistCategoria.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
-
-        jCheckBox2.setText("2");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox3.setText("3");
-        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox3ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox4.setText("4");
-        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox4ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox5.setText("5");
-        jCheckBox5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox5ActionPerformed(evt);
-            }
-        });
+        jScrollPane2.setViewportView(jlistCategoria);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -347,18 +310,8 @@ public final class ProdutoView extends javax.swing.JFrame {
                             .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jCheckBox1)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jCheckBox3)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jCheckBox5))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jCheckBox2)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jCheckBox4)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(btnDisponibilidade, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -369,7 +322,7 @@ public final class ProdutoView extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblId)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -393,26 +346,17 @@ public final class ProdutoView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblQuantidade))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCategoria)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jCheckBox1)
-                                .addComponent(jCheckBox3)
-                                .addComponent(jCheckBox5)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCheckBox2)
-                            .addComponent(jCheckBox4)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(btnDisponibilidade)))
-                .addGap(12, 12, 12)
-                .addComponent(pnlBotoesFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(pnlTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pnlBotoesFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pnlTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDisponibilidade))
                 .addContainerGap())
         );
 
@@ -424,12 +368,6 @@ public final class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDisponibilidadeActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-
-        listCheckBox.add(jCheckBox1);
-        listCheckBox.add(jCheckBox2);
-        listCheckBox.add(jCheckBox3);
-        listCheckBox.add(jCheckBox4);
-        listCheckBox.add(jCheckBox5);
 
         for(int i=0; i<listCheckBox.size();i++){
         JCheckBox check = listCheckBox.get(i);
@@ -553,41 +491,6 @@ public final class ProdutoView extends javax.swing.JFrame {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
-    if(jCheckBox4.isSelected())
-       {
-           jCheckBox4.getText();
-       }
-    }//GEN-LAST:event_jCheckBox4ActionPerformed
-
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
- if(jCheckBox1.isSelected())
-       {
-           jCheckBox1.getText();
-       }
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-    if(jCheckBox2.isSelected())
-       {
-           jCheckBox2.getText();
-       }
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
-
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-  if(jCheckBox3.isSelected())
-       {
-           jCheckBox3.getText();
-       }
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
-
-    private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
-        if(jCheckBox5.isSelected())
-       {
-           jCheckBox5.getText();
-       }
-    }//GEN-LAST:event_jCheckBox5ActionPerformed
-
     private List<JCheckBox> listCheckBox = new  ArrayList<>();
    
     /**
@@ -634,14 +537,11 @@ public final class ProdutoView extends javax.swing.JFrame {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSalvar;
     private javax.swing.ButtonGroup grupoCategorias;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JList jlistCategoria;
     private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblDescricão;
     private javax.swing.JLabel lblId;
