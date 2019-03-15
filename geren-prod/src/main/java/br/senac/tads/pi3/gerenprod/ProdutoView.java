@@ -7,7 +7,9 @@ package br.senac.tads.pi3.gerenprod;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.control.CheckBox;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -149,7 +151,7 @@ public final class ProdutoView extends javax.swing.JFrame {
             }
         });
 
-        pnlBotoesFormulario.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        pnlBotoesFormulario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -186,9 +188,9 @@ public final class ProdutoView extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlTabela.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        pnlTabela.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        pnlBotoes.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        pnlBotoes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -285,7 +287,6 @@ public final class ProdutoView extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        grupoCategorias.add(jCheckBox1);
         jCheckBox1.setText("1");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,7 +294,6 @@ public final class ProdutoView extends javax.swing.JFrame {
             }
         });
 
-        grupoCategorias.add(jCheckBox2);
         jCheckBox2.setText("2");
         jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -301,7 +301,6 @@ public final class ProdutoView extends javax.swing.JFrame {
             }
         });
 
-        grupoCategorias.add(jCheckBox3);
         jCheckBox3.setText("3");
         jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -309,7 +308,6 @@ public final class ProdutoView extends javax.swing.JFrame {
             }
         });
 
-        grupoCategorias.add(jCheckBox4);
         jCheckBox4.setText("4");
         jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -317,7 +315,6 @@ public final class ProdutoView extends javax.swing.JFrame {
             }
         });
 
-        grupoCategorias.add(jCheckBox5);
         jCheckBox5.setText("5");
         jCheckBox5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -427,7 +424,19 @@ public final class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDisponibilidadeActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-   
+
+        listCheckBox.add(jCheckBox1);
+        listCheckBox.add(jCheckBox2);
+        listCheckBox.add(jCheckBox3);
+        listCheckBox.add(jCheckBox4);
+        listCheckBox.add(jCheckBox5);
+
+        for(int i=0; i<listCheckBox.size();i++){
+        JCheckBox check = listCheckBox.get(i);
+        System.out.println(""+check.isSelected());
+                System.out.println(""+check.getText().toString());
+
+        }
         if (isModoTelaCriar) {
             
          
@@ -579,6 +588,8 @@ public final class ProdutoView extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_jCheckBox5ActionPerformed
 
+    private List<JCheckBox> listCheckBox = new  ArrayList<>();
+   
     /**
      * @param args the command line arguments
      */
@@ -613,6 +624,7 @@ public final class ProdutoView extends javax.swing.JFrame {
             }
         });
     }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;

@@ -14,7 +14,7 @@ import java.sql.Statement;
  */
 public class DB {
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String SERVIDOR = "jdbc:mysql://localhost:3308/"; //Mudar apenas isso
+    private static final String SERVIDOR = "jdbc:mysql://localhost:3306/"; //Mudar apenas isso
     private static final String BASEDADOS = "produtobd";
     private static final String LOGIN = "root"; //Mudar apenas isso
     private static final String SENHA = ""; //Mudar apenas isso
