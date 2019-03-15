@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 public final class ProdutoView extends javax.swing.JFrame {
 
     private boolean isModoTelaCriar; //"Criar/Editar"
+    private ArrayList<String> listaCategorias;
 
     /**
      * Creates new form ProdutoView
@@ -61,7 +62,7 @@ public final class ProdutoView extends javax.swing.JFrame {
     }
     
     public void preencherListaCategorias() {
-        ArrayList<String> listaCategorias = ProdutoController.listarCategorias();
+        listaCategorias = ProdutoController.listarCategorias();
         
         DefaultListModel<String> listModel = new DefaultListModel<>();
         for (String categoria : listaCategorias) {
@@ -70,7 +71,7 @@ public final class ProdutoView extends javax.swing.JFrame {
         
         jlistCategoria.setModel(listModel);
         
-        //this.pack();
+        this.pack();
     }
 
     public void LimparFormulario() {
@@ -456,7 +457,29 @@ public final class ProdutoView extends javax.swing.JFrame {
                 } else {
                     btnDisponibilidade.setBackground(new Color(1.0f, 0, 0));
                 }
+                
+                jlistCategoria.removeSelectionInterval(0, listaCategorias.size()-1);
+                
+                String categoriasText = "";
+                
+                if (tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 8) != null) {
+                    categoriasText = tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 8).toString();
+                }
+                
+                String[] categorias = categoriasText.split(", ");
+                
+                if (categorias.length > 0) {
+                    int[] indices = new int[categorias.length];
+                
+                    int i = 0;
+                    for (String categoria : categorias) {
+                        indices[i] = listaCategorias.indexOf(categoria);
+                        i++;
+                    }
 
+                    jlistCategoria.setSelectedIndices(indices);
+                }
+                
             } else {
                 JOptionPane.showMessageDialog(this, "Selecione um produto para editar!");
             }
