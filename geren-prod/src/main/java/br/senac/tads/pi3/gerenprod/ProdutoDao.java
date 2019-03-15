@@ -179,8 +179,22 @@ public class ProdutoDao {
     }
 
     public static boolean Excluir(int produtoID) {
-        DB db = new DB(true);
-        String sql = "DELETE FROM produto Where ID = " + produtoID + ";";
-        return db.executarAlteracao(sql);
+        DB db = new DB(false);
+        
+        String sql = "DELETE FROM produto_categoria Where ID_PRODUTO = " + produtoID + ";";
+        db.executarAlteracao(sql);
+        
+        sql = "DELETE FROM produto Where ID = " + produtoID + ";";
+        boolean deletarProduto = db.executarAlteracao(sql);
+        
+        if (deletarProduto) {
+            db.commit();
+            db.close();
+            return true;
+        } else {
+            db.rollback();
+            db.close();
+            return false;
+        }
     }
 }
