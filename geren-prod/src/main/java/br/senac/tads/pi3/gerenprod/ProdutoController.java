@@ -5,8 +5,6 @@ package br.senac.tads.pi3.gerenprod;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import br.senac.tads.pi3.gerenprod.ProdutoDao;
 
 /**
  *

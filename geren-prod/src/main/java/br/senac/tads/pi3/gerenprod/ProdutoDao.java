@@ -116,8 +116,11 @@ public class ProdutoDao {
     }
 
     public static boolean Salvar(Produto p) {
-        DB db = new DB(true);
-        String sql
+        DB db = new DB(false);
+        
+        try {
+            
+            String sql
                 = "INSERT INTO produto "
                 + "(NOME, DESCRICAO, PRECO_COMPRA, PRECO_VENDA, QUANTIDADE, DISPONIVEL)"
                 + "VALUES ("
@@ -127,7 +130,52 @@ public class ProdutoDao {
                 + p.getPrecoDeVenda() + ", "
                 + p.getQuantidade() + ", "
                 + p.isProdutoDisponivel() + ");"; 
-        return db.executarAlteracao(sql);
+            
+            if (!db.executarAlteracao(sql)) {
+                throw new Exception("Não foi possível cadastrar o produto.");
+            }
+            
+            sql = "SELECT ID FROM produto ORDER BY DT_CADASTRO DESC LIMIT 1;";
+            
+            ResultSet rs = db.executarConsulta(sql);
+            int idProduto = 0;
+            
+            while (rs.next()) {
+                idProduto = rs.getInt("ID");
+            }
+            
+            if (idProduto == 0) {
+                throw new Exception("Não foi possível cadastrar o produto.");
+            }
+            
+            if (!p.getCategorias().isEmpty()) {
+                sql = "INSERT INTO produto_categoria (ID_Produto, ID_CATEGORIA) VALUES ";
+            
+                String[] categorias = p.getCategorias().split(", ");
+
+                for (String categoria : categorias) {
+                    String id = categoria.split(" - ")[0];
+                    sql += "(" + idProduto + "," + id + "),";
+                }
+                
+                sql = sql.substring(0, sql.length() - 1);
+                sql += ";";
+                
+                if (!db.executarAlteracao(sql)) {
+                    throw new Exception("Não foi possível salvar as categorias do produto.");
+                }
+            }
+            
+            db.commit();
+            db.close();
+            return true;
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            db.rollback();
+            db.close();
+            return false;
+        }
     }
 
     public static boolean Excluir(int produtoID) {

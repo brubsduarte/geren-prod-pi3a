@@ -75,7 +75,7 @@ public final class ProdutoView extends javax.swing.JFrame {
     }
 
     public void LimparFormulario() {
-
+        jlistCategoria.removeSelectionInterval(0, listaCategorias.size() - 1);
         txtId.setText("");
         txtNome.setText("");
         txtDescricao.setText("");
@@ -393,6 +393,9 @@ public final class ProdutoView extends javax.swing.JFrame {
 
         if (isModoTelaCriar) {
 
+            List<String> indices = jlistCategoria.getSelectedValuesList();
+            String categorias = String.join(", ", indices);
+            
             if (ProdutoController.Salvar(
                 txtNome.getText(),
                 txtDescricao.getText(),
@@ -400,7 +403,7 @@ public final class ProdutoView extends javax.swing.JFrame {
                 Double.parseDouble(txtPrecoVenda.getText()),
                 Integer.parseInt(txtQuantidade.getText()),
                 btnDisponibilidade.isSelected(),
-                grupoCategorias.toString()
+                categorias
             )) {
                 JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
                 LimparFormulario();
@@ -426,7 +429,6 @@ public final class ProdutoView extends javax.swing.JFrame {
             
             if (alterado) {
                 preencherTabelaProdutos();
-                jlistCategoria.removeSelectionInterval(0, listaCategorias.size() - 1);
                 JOptionPane.showMessageDialog(this, "Produto Atualizado com sucesso!");
                 LimparFormulario();
             } else {
