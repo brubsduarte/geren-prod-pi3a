@@ -47,7 +47,7 @@ public final class ProdutoView extends javax.swing.JFrame {
         }
 
         tblProdutos.setModel(tmProduto);
-  
+
         tblProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
         tblProdutos.getColumnModel().getColumn(1).setPreferredWidth(80);
         tblProdutos.getColumnModel().getColumn(2).setPreferredWidth(150);
@@ -60,17 +60,17 @@ public final class ProdutoView extends javax.swing.JFrame {
 
         this.pack();
     }
-    
+
     public void preencherListaCategorias() {
         listaCategorias = ProdutoController.listarCategorias();
-        
+
         DefaultListModel<String> listModel = new DefaultListModel<>();
         for (String categoria : listaCategorias) {
             listModel.addElement(categoria);
         }
-        
+
         jlistCategoria.setModel(listModel);
-        
+
         this.pack();
     }
 
@@ -385,25 +385,22 @@ public final class ProdutoView extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
-        for(int i=0; i<listCheckBox.size();i++){
-        JCheckBox check = listCheckBox.get(i);
-        System.out.println(""+check.isSelected());
-                System.out.println(""+check.getText().toString());
-
+        for (int i = 0; i < listCheckBox.size(); i++) {
+            JCheckBox check = listCheckBox.get(i);
+            System.out.println("" + check.isSelected());
+            System.out.println("" + check.getText().toString());
         }
+
         if (isModoTelaCriar) {
-            
-         
-       
+
             if (ProdutoController.Salvar(
-                    txtNome.getText(),
-                    txtDescricao.getText(),
-                    Double.parseDouble(txtPrecoCompra.getText()),
-                    Double.parseDouble(txtPrecoVenda.getText()),
-                    Integer.parseInt(txtQuantidade.getText()),
-                    btnDisponibilidade.isSelected(), 
-                    grupoCategorias.toString()
-                         
+                txtNome.getText(),
+                txtDescricao.getText(),
+                Double.parseDouble(txtPrecoCompra.getText()),
+                Double.parseDouble(txtPrecoVenda.getText()),
+                Integer.parseInt(txtQuantidade.getText()),
+                btnDisponibilidade.isSelected(),
+                grupoCategorias.toString()
             )) {
                 JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
                 LimparFormulario();
@@ -412,23 +409,31 @@ public final class ProdutoView extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Falha ao cadastrar produto!");
             }
 
-        } else if (ProdutoController.Atualizar(Integer.parseInt(txtId.getText()),
+        } else {
+            
+            List<String> indices = jlistCategoria.getSelectedValuesList();
+            String categorias = String.join(", ", indices);
+            
+            boolean alterado = ProdutoController.Atualizar(Integer.parseInt(txtId.getText()),
                 txtNome.getText(),
                 txtDescricao.getText(),
                 Double.parseDouble(txtPrecoCompra.getText()),
                 Double.parseDouble(txtPrecoVenda.getText()),
                 Integer.parseInt(txtQuantidade.getText()),
                 btnDisponibilidade.isSelected(),
-                grupoCategorias.toString()
-        )) {
-            preencherTabelaProdutos();
-            JOptionPane.showMessageDialog(this, "Produto Atualizado com sucesso!");
-            LimparFormulario();
-        } else {
-            JOptionPane.showMessageDialog(this, "Falha ao Atualizar produto!");
+                categorias
+            );
+            
+            if (alterado) {
+                preencherTabelaProdutos();
+                jlistCategoria.removeSelectionInterval(0, listaCategorias.size() - 1);
+                JOptionPane.showMessageDialog(this, "Produto Atualizado com sucesso!");
+                LimparFormulario();
+            } else {
+                JOptionPane.showMessageDialog(this, "Ocorreu um erro ao atualizar o produto.");
+            }
         }
-        
-        
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -450,27 +455,27 @@ public final class ProdutoView extends javax.swing.JFrame {
                 txtPrecoVenda.setText(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 5).toString());
                 txtQuantidade.setText(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 6).toString());
                 int tmp = (tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 7).toString().compareTo("SIM"));
-                
+
                 btnDisponibilidade.setSelected(tmp == 0);
                 if (tmp == 0) {
                     btnDisponibilidade.setBackground(new Color(0, 1.0f, 0));
                 } else {
                     btnDisponibilidade.setBackground(new Color(1.0f, 0, 0));
                 }
-                
-                jlistCategoria.removeSelectionInterval(0, listaCategorias.size()-1);
-                
+
+                jlistCategoria.removeSelectionInterval(0, listaCategorias.size() - 1);
+
                 String categoriasText = "";
-                
+
                 if (tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 8) != null) {
                     categoriasText = tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 8).toString();
                 }
-                
+
                 String[] categorias = categoriasText.split(", ");
-                
+
                 if (categorias.length > 0) {
                     int[] indices = new int[categorias.length];
-                
+
                     int i = 0;
                     for (String categoria : categorias) {
                         indices[i] = listaCategorias.indexOf(categoria);
@@ -479,7 +484,7 @@ public final class ProdutoView extends javax.swing.JFrame {
 
                     jlistCategoria.setSelectedIndices(indices);
                 }
-                
+
             } else {
                 JOptionPane.showMessageDialog(this, "Selecione um produto para editar!");
             }
@@ -510,27 +515,27 @@ public final class ProdutoView extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (tblProdutos.getRowCount() >= 0 && tblProdutos.getSelectedRow() >= 0) {
-                int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir?", "Excluir", JOptionPane.YES_NO_OPTION);
-                if(resposta == JOptionPane.YES_OPTION){
-                 int prodoutoId = Integer.parseInt(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 0).toString());
-                 
-            if (ProdutoController.Excluir(prodoutoId)) {
-                this.preencherTabelaProdutos();
-                
-                JOptionPane.showMessageDialog(this, "Produto excluído da base de dados");
-                LimparFormulario();
-                
-            } else {
-                JOptionPane.showMessageDialog(this, "Falha ao excluir o produto!");
+            int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir?", "Excluir", JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                int prodoutoId = Integer.parseInt(tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 0).toString());
+
+                if (ProdutoController.Excluir(prodoutoId)) {
+                    this.preencherTabelaProdutos();
+
+                    JOptionPane.showMessageDialog(this, "Produto excluído da base de dados");
+                    LimparFormulario();
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Falha ao excluir o produto!");
+                }
             }
-        }
         } else {
             JOptionPane.showMessageDialog(this, "Não há produtos para excluir!");
         }        // TODO add your handling code here:
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private List<JCheckBox> listCheckBox = new  ArrayList<>();
-   
+    private List<JCheckBox> listCheckBox = new ArrayList<>();
+
     /**
      * @param args the command line arguments
      */
@@ -565,7 +570,7 @@ public final class ProdutoView extends javax.swing.JFrame {
             }
         });
     }
-   
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;

@@ -63,8 +63,11 @@ public class ProdutoDao {
     }
 
     public static boolean Atualizar(Produto p) {
-        DB db = new DB(true);
-        String sql
+        DB db = new DB(false);
+        
+        try {
+            
+            String sql
                 = "UPDATE produto SET "
                 + "NOME = '" + p.getNome() + "', "
                 + "DESCRICAO = '" + p.getDescricao() + "', "
@@ -73,7 +76,43 @@ public class ProdutoDao {
                 + "QUANTIDADE = " + p.getQuantidade() + ", "
                 + "DISPONIVEL = " + p.isProdutoDisponivel() + " "
                 + "Where ID = " + p.getId() + "; ";
-        return db.executarAlteracao(sql);
+            
+            if (!db.executarAlteracao(sql)) {
+                throw new Exception("Não foi possível atualizar o produto.");
+            }
+            
+            sql = "DELETE FROM produto_categoria WHERE ID_PRODUTO = " + p.getId() + ";";
+            
+            db.executarAlteracao(sql);
+            
+            if (!p.getCategorias().isEmpty()) {
+                sql = "INSERT INTO produto_categoria (ID_Produto, ID_CATEGORIA) VALUES ";
+            
+                String[] categorias = p.getCategorias().split(", ");
+
+                for (String categoria : categorias) {
+                    String id = categoria.split(" - ")[0];
+                    sql += "(" + p.getId() + "," + id + "),";
+                }
+                
+                sql = sql.substring(0, sql.length() - 1);
+                sql += ";";
+                
+                if (!db.executarAlteracao(sql)) {
+                    throw new Exception("Não foi possível salvar as categorias do produto.");
+                }
+            }
+            
+            db.commit();
+            db.close();
+            return true;
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            db.rollback();
+            db.close();
+            return false;
+        }
     }
 
     public static boolean Salvar(Produto p) {
